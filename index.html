@@ -12,47 +12,60 @@
     <script src="js/create.js" defer></script> <!-- HTML動的生成機能 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>発掘.com</title>
+    <title>topicpot.com</title>
 </head>
+
 <header>
-    <h1>発掘.com</h1>
-    <button id="btnChangeWord">axios get</button>
-    <button id="btnChangeWord2">fetch</button>
-    <button id="btnChangeWord3">ajax</button>
-    <input type="text">
-    <input type="text">
-    <input type="text">
-    <button id="btnStartSearch">発掘!</button>
+    <h1>topicpot.com</h1>
+    <p>topicpot is a service that provides up to 100 topics at the same time.</p>
+    <p>(topicpotは、最大100個のトピックを同時に提供するサービスです。)</p>
+    language(言語)
+    <select name="" id="langType" type="texst">
+        <option value="en">English</option>
+        <option value="fr">français</option>
+        <option value="de">Deutsch</option>
+        <option value="es">español</option>
+        <option value="ja" selected>日本語</option>
+        <option value="ru">русский</option>
+        <option value="it">italiano</option>
+        <option value="zh">中文</option>
+    </select>
+    column(縦)
+    <select name="" id="colNum" type="number">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
+    Row(横)
+    <select name="" id="rowNum" type="number">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
+    <button id='createPanel'>Let's topicpot !!</button>
 </header>
 
 <body>
-    <div class='searchResult'>
-        <table>
-            <tr>
-                <td>
-                    <img src="" alt="サムネイル">
-                </td>
-                <td>
-                    <p>URL</p>
-                    <p>説明</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src="" alt="サムネイル">
-                </td>
-                <td>
-                    <p>URL</p>
-                    <p>説明</p>
-                </td>
-            </tr>
-        </table>
-
+    <div id='searchPanel' class='searchResult'>
     </div>
     <hr>
-    <h2>最近検索された単語</h2>
+    <h2>Recently chosen words(最近選ばれた単語)</h2>
     <hr>
-    <h2>最近発掘されたWEBサイト</h2>
+    <h2>Schedule(対応予定)</h2>
 </body>
 <footer>
     <hr>
@@ -60,97 +73,58 @@
 
 
 <script>
+    /* 
+     * パネル作成
+     * @param 列の数
+     * @param 行の数
+     */
+    function createPanel(colNum, rowNum) {
+        let htmlText = '<table>';
+        for (let col = 0; col < colNum; col++) {
+            htmlText += '<tr>'
 
-    function getRandomWiki() {
-        //jqueryの関数を利用して、JSONPでwikipediaの記事タイトルをランダムで取得する。
-        $.ajax({
-            type: "get",
-            dataType: "jsonp",
-            url: "https://ja.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=1&format=json",
-            //記事タイトルの取得が成功した時の処理
-            success: function (json) {
-                //取得したjsonデータ中の記事タイトルを抽出   
-                var title = json.query.random[0].title;
-                //抽出した記事タイトルの中身を取得すr関数
-                getWiki(title);
+            for (let row = 0; row < rowNum; row++) {
+                htmlText += `
+                            <td>
+                                <a id='panel_${col}-${row}' href='' target='_blank' rel='noopener noreferrer'></a>
+                            </td> `
             }
-        });
-    }
-    function getWiki(query) {
-        //引数(query)に指定された記事の中身をhtml形式で取得
-        $.ajax({
-            type: "get",
-            dataType: "jsonp",
-            url: "https://ja.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" + query + "&rvprop=content&rvparse",
-            //記事の中身の取得が成功した時の処理(記事の中身を画面に反映するための関数を呼び出す)
-            success: parseWiki
-        });
-    }
-    function parseWiki(json) {
-        //記事の中身を抽出
-        var html;
-        for (i in json.query.pages) {
-            html = json.query.pages[i].revisions[0]["*"];
+            htmlText += '</tr>'
         }
-        //抽出した記事の内容でid=contentsの要素の中身を書き換える
-        document.getElementById("contents").innerHTML = html;
-        //記事中のリンク(aタグ)をクリックした時のイベントを設定
-        addEventLink();
-        //記事中のリンクのリンク先をcontentsのトップに設定
-        Array.from(document.querySelectorAll("a"), (e) => {
-            e.href = "#contents";
-        });
+        htmlText += '</table>';
+
+        $('#searchPanel').html(htmlText);
     }
 
-    function getRandomArticle() {
-
-        var url = "https://ja.wikipedia.org/w/api.php";
-
-        var params = {
-            action: "query",
-            format: "json",
-            list: "random",
-            rnlimit: "5"
-        };
-
-        url = url + "?origin=*";
-        Object.keys(params).forEach(function (key) { url += "&" + key + "=" + params[key]; });
-        console.log(url);
-
-        axios.get(url)
-            .then(function (response) {
-                // リクエスト成功時の処理(responseに結果が入っている)
-                console.log(response);
-                var randoms = response.query.random;
-                for (var r in randoms) {
-                    console.log(randoms[r].title);
-                }
-            })
-            .catch(function (error) {
-                // リクエスト失敗時の処理(errorにエラー内容が入っている)
-                console.log(error);
-            })
-            .finally(function () {
-                // 成功失敗に関わらず必ず実行
-                console.log('done!');
-            });
+    function googleSearch() {
+        var keyword = "";
+        /* キーワード(エンコード) */
+        if (document.form1.keyword.value != "") {
+            keyword = encodeURIComponent(document.form1.keyword.value);
+        }
+        var pram = keyword;
+        /* アドレスにパラメータを付加 */
+        location.href = "http:google.com/search?q=" + pram;
+        return false;
     }
 
-    function getRandomArticle2() {
+    /*
+     * パネル作成
+     * @param 列の数
+     * @param 行の数
+     */
+    function getRandomWord(langType, colNum, rowNum) {
 
-        var url = "https://ja.wikipedia.org/w/api.php";
+        var url = `https://${langType}.wikipedia.org/w/api.php`;
 
         var params = {
-            format: "json",         //JSON形式を指定
-            action: "query",        //データ取得のアクションを指定
-            generator: "random",    //記事をランダムに取得するよう指定
-            //grnamespace: "0",     //持ってくる記事の名前空間（分類のようなもの）を0（標準）に設定
-            list: "random",
-            prop: "info",         //記事の基本情報を取得
-            inprop: "url",        //記事のURLも持ってくるよう設定
-            //indexpageids,         //ページのIDを付与 これを指定しなければいけない理由は後述
-            rnnamespace: "0",       //0:標準  https://ja.wikipedia.org/wiki/Help:%E5%90%8D%E5%89%8D%E7%A9%BA%E9%96%93
-            rnlimit: "10"
+            format: "json",       //JSON形式を指定
+            action: "query",      //データ取得のアクションを指定
+            generator: "random",  //記事をランダムに取得するよう指定
+            list: "random",       //ランダム
+            rnnamespace: "0",     //0:標準  https://ja.wikipedia.org/wiki/Help:%E5%90%8D%E5%89%8D%E7%A9%BA%E9%96%93
+            rnlimit: colNum * rowNum,
+            prop: "categories"    //記事の基本情報を取得
         };
 
         url = url + "?origin=*";
@@ -162,13 +136,25 @@
                 return response.json();
             })
             .then(function (response) {
-                console.log(response);
                 //onst item = JSON.parse(response);
                 console.log(response);
                 var randoms = response.query.random;
                 for (var r in randoms) {
                     console.log(randoms[r].title);
+
                 }
+                //リンク作成
+                for (let col = 0; col < colNum; col++) {
+                    for (let row = 0; row < rowNum; row++) {
+                        console.log(`#panel_${col}-${row}`);
+                        $(`#panel_${col}-${row}`).attr('href', 'http:google.com/search?q=' + randoms[col * rowNum + row].title);
+                        $(`#panel_${col}-${row}`).text(randoms[col * rowNum + row].title);
+                    }
+                }
+
+
+
+
             })
             .catch(function (error) { console.log(error); });
     }
@@ -179,7 +165,7 @@
     });
     $('#btnChangeWord2').on('click', function () {
         //wordTest();
-        getRandomArticle2();
+        getRandomWord($('#colNum').val() * $('#rowNum').val());
     });
     $('#btnChangeWord3').on('click', function () {
         //wordTest();
@@ -208,6 +194,15 @@
     $('#btnStartSearch').on('click', function () {
 
     });
+
+    // パネルボタン
+    $('#createPanel').on('click', function () {
+        //パネル作成
+        createPanel($('#colNum').val(), $('#rowNum').val());
+        //リンク作成
+        getRandomWord($('#langType').val(), $('#colNum').val(), $('#rowNum').val());
+    });
+
 
 
 </script>
