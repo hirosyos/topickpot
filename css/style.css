@@ -12,6 +12,16 @@ header{
 	margin:0px 0px 0px 0px; /*上右下左*/
 }
 
+.title{
+    font-size:64px;
+}
+
+.menuBar{
+    display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
 .searchResult{
 	display:flex;
 	justify-content:center;

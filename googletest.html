@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        /* パラメータを渡す側 */
+        function send() {
+            var keyword = "";
+            /* キーワード(エンコード) */
+            if (document.form1.keyword.value != "") {
+                keyword = encodeURIComponent(document.form1.keyword.value);
+            }
+            var pram = keyword;
+            /* アドレスにパラメータを付加 */
+            location.href = "http:google.com/search?q=" + pram;
+            return false;
+        }
+    </script>
+
+    <!-- ★送信フォーム [start] -->
+    <form action="#" method="get" name="form1" onsubmit="return send();">
+        <fieldset>
+            <legend>パラメータに渡す値を入力</legend>
+            <p>
+                検索キーワード：<input type="text" name="keyword" value="" size="20" />
+            </p>
+            <p>
+                <input type="submit" value="送信" />
+            </p>
+        </fieldset>
+    </form>
+    <!-- ★送信フォーム [end] // -->
+
+</body>
+
+</html>

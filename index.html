@@ -5,284 +5,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/word.js" defer></script> <!-- 単語機能 -->
-    <script src="js/search.js" defer></script> <!-- 検索機能 -->
-    <script src="js/history.js" defer></script> <!-- 履歴機能 -->
-    <script src="js/share.js" defer></script> <!-- 共有機能 -->
-    <script src="js/create.js" defer></script> <!-- HTML動的生成機能 -->
+    <script src="js/word.js"></script> <!-- 単語機能 -->
+    <script src="js/search.js"></script> <!-- 検索機能 -->
+    <script src="js/history.js"></script> <!-- 履歴機能 -->
+    <script src="js/share.js"></script> <!-- 共有機能 -->
+    <script src="js/create.js"></script> <!-- HTML動的生成機能 -->
+    <script src="js/language.js"></script> <!-- 多言語対応機能 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>topicpot.com</title>
+    <title>ToPickPot</title>
 </head>
 
 <header>
-
-    <h1>topicpot.com</h1>
-    <p id='aboutTopicPot'>
-        topicpot is a service that provides up to 100 topics at the same time. <br>
-        (topicpotは、最大100個のトピックを同時に提供するサービスです。)</p>
-    <hr>
+    <h1 id='aboutTitle' class='title'>ToPickPot</h1>
+    <p id='aboutTopicPot'></p>
 </header>
 
-language(言語)
-<!-- <select name="" id="langType" type="texst">
-    <option value="en">English</option>
-    <option value="fr">français</option>
-    <option value="de">Deutsch</option>
-    <option value="es">español</option>
-    <option value="ja" selected>日本語</option>
-    <option value="ru">русский</option>
-    <option value="it">italiano</option>
-    <option value="zh">中文</option>
-</select> -->
-<select name="" id="langType" type="texst">
-    <option value="0">English</option>
-    <option value="1">français</option>
-    <option value="2">Deutsch</option>
-    <option value="3">español</option>
-    <option value="4" selected>日本語</option>
-    <option value="5">русский</option>
-    <option value="6">italiano</option>
-    <option value="7">中文</option>
-</select>
-column(縦)
-<select name="" id="colNum" type="number">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3" selected>3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10">10</option>
-</select>
-Row(横)
-<select name="" id="rowNum" type="number">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3" selected>3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10">10</option>
-</select>
-<button id='createPanel'>Let's topicpot !!</button>
+<div class='menuBar'>
+    <p id='aboutLangType'>language</p>
 
+    <select name="" id="langType" type="texst">
+        <option value="0">English</option>
+        <option value="1">français</option>
+        <option value="2">Deutsch</option>
+        <option value="3">español</option>
+        <option value="4">日本語</option>
+        <option value="5">русский</option>
+        <option value="6">italiano</option>
+        <option value="7">中文</option>
+    </select>
+
+    <p id='aboutColmn'>column</p>
+
+    <select name="" id="colNum" type="number">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
+
+    <p id='aboutRow'>Row</p>
+
+    <select name="" id="rowNum" type="number">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
+    <button id='createPot'>Let's topicpot !!</button>
+</div>
 
 <body>
     <div id='searchPanel' class='searchResult'>
     </div>
-    <hr>
-    <h2 id='resent'>Recently chosen words(最近選ばれた単語)</h2>
-    <hr>
-    <h2 id='schedule'>Schedule(対応予定)</h2>
+    <h2 id='aboutResent'></h2>
+    <h2 id='aboutSchedule'></h2>
 </body>
+
 <footer>
     <hr>
+    <table>
+        <tr>
+            <td>Twitter</td>
+            <td>@miniusagi33 </td>
+        </tr>
+    </table>
 </footer>
 
 
 <script>
-    /*
-     * 言語リソース
-     */
-    const langResource = [
-        {
-            //英語
-            language: 'en',
-            aboutTopicPot: 'topicpot is a service that provides up to 100 topics at the same time.',
-            resent: 'Recently chosen topic',
-            schedule: 'Schedule',
-        },
-        {
-            //フランス語
-            language: 'fr',
-            aboutTopicPot: 'topicpot est un service qui fournit jusqu\'à 100 sujets en même temps.',
-            resent: 'Sujet récemment choisi',
-            schedule: 'Programme',
-        },
-        {
-            //ドイツ語
-            language: 'de',
-            aboutTopicPot: 'topicpot ist ein Dienst, der bis zu 100 Themen gleichzeitig anbietet.',
-            resent: 'Kürzlich gewähltes Thema',
-            schedule: 'Zeitplan',
-        },
-        {
-            //スペイン語
-            language: 'es',
-            aboutTopicPot: 'topicpot es un servicio que proporciona hasta 100 temas al mismo tiempo.',
-            resent: 'El tema elegido recientemente',
-            schedule: 'Programación',
-        },
-        {
-            //日本語
-            language: 'ja',
-            aboutTopicPot: 'topicpotは、最大100個のトピックを同時に提供するサービスです。',
-            resent: '最近選んだトピック',
-            schedule: 'スケジュール',
-        },
-        {
-            //ロシア語
-            language: 'ru',
-            aboutTopicPot: 'topicpot - это услуга, которая предоставляет до 100 тем одновременно.',
-            resent: 'Недавно выбранные слова',
-            schedule: 'Расписание',
-        },
-        {
-            //イタリア語
-            language: 'it',
-            aboutTopicPot: 'topicpot è un servizio che fornisce fino a 100 argomenti contemporaneamente.',
-            resent: 'Parole scelte di recente',
-            schedule: 'Programmazione',
-        },
-        {
-            //中国語
-            language: 'zh',
-            aboutTopicPot: 'topicpot是一个可以同时提供多达100个话题的服务。',
-            resent: '最近选择的词语',
-            schedule: '时间表',
-        },
-    ]
 
-    /* 
-     * パネル作成
-     * @param 列の数
-     * @param 行の数
-     */
-    function createPanel(colNum, rowNum) {
-        let htmlText = '<table>';
-        for (let col = 0; col < colNum; col++) {
-            htmlText += '<tr>'
+    //ローカルデータ
+    let localData;
+    let jsonData;
 
-            for (let row = 0; row < rowNum; row++) {
-                htmlText += `
-                            <td>
-                                <a id='panel_${col}-${row}' href='' target='_blank' rel='noopener noreferrer'></a>
-                            </td> `
-            }
-            htmlText += '</tr>'
+    //初期設定
+    if (localStorage.getItem('localDataJson') === null) {
+        //ローカルストレージの初期設定(デフォルトは日本語の3x3)
+        localData = {
+            lang: '4',
+            col: '3',
+            row: '3',
         }
-        htmlText += '</table>';
-
-        $('#searchPanel').html(htmlText);
+        jsonData = JSON.stringify(localData)
+        localStorage.setItem('localDataJson', jsonData);
     }
-
-    function googleSearch() {
-        var keyword = "";
-        /* キーワード(エンコード) */
-        if (document.form1.keyword.value != "") {
-            keyword = encodeURIComponent(document.form1.keyword.value);
-        }
-        var pram = keyword;
-        /* アドレスにパラメータを付加 */
-        location.href = "http:google.com/search?q=" + pram;
-        return false;
+    else {
+        //ローカルストレージから読み出し
+        jsonData = localStorage.getItem('localDataJson');
+        localData = JSON.parse(jsonData);
     }
+    $('#langType').val(localData.lang);
+    $('#colNum').val(localData.col);
+    $('#rowNum').val(localData.row);
 
-    /*
-     * パネル作成
-     * @param 言語
-     * @param 列の数
-     * @param 行の数
-     */
-    function getRandomWord(langType, colNum, rowNum) {
-
-        var url = `https://${langType}.wikipedia.org/w/api.php`;
-
-        var params = {
-            format: "json",       //JSON形式を指定
-            action: "query",      //データ取得のアクションを指定
-            generator: "random",  //記事をランダムに取得するよう指定
-            list: "random",       //ランダム
-            rnnamespace: "0",     //0:標準  https://ja.wikipedia.org/wiki/Help:%E5%90%8D%E5%89%8D%E7%A9%BA%E9%96%93
-            rnlimit: colNum * rowNum,
-            prop: "categories"    //記事の基本情報を取得
-        };
-
-        url = url + "?origin=*";
-        Object.keys(params).forEach(function (key) { url += "&" + key + "=" + params[key]; });
-        console.log(url);
-
-        fetch(url)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (response) {
-                //onst item = JSON.parse(response);
-                console.log(response);
-                var randoms = response.query.random;
-                for (var r in randoms) {
-                    console.log(randoms[r].title);
-
-                }
-                //リンク作成
-                for (let col = 0; col < colNum; col++) {
-                    for (let row = 0; row < rowNum; row++) {
-                        console.log(`#panel_${col}-${row}`);
-                        $(`#panel_${col}-${row}`).attr('href', `http:google.com/search?hl=${langType}&q=` + randoms[col * rowNum + row].title);
-                        $(`#panel_${col}-${row}`).text(randoms[col * rowNum + row].title);
-                    }
-                }
+    //ページの言語設定変更
+    languageChange(localData.lang);
+    //トピックポット作成
+    createPot(localData.col, localData.row);
+    //リンク作成
+    createTopic(languageResource[localData.lang].language, localData.col, localData.row);
 
 
-
-
-            })
-            .catch(function (error) { console.log(error); });
-    }
-    // 回転ボタン
-    $('#btnChangeWord').on('click', function () {
-        //wordTest();
-        getRandomArticle();
-    });
-    $('#btnChangeWord2').on('click', function () {
-        //wordTest();
-        getRandomWord($('#colNum').val() * $('#rowNum').val());
-    });
-    $('#btnChangeWord3').on('click', function () {
-        //wordTest();
-        getRandomWiki();
-    });
-    // 発掘ボタン
-    $('#btnStartSearch').on('click', function () {
-        createTest();
-        wordTest();
-        searchTest();
-        shareTest();
-        historyTest();
-    });
-
-    // 過去検索された単語
-    $('#btnStartSearch').on('click', function () {
-
-    });
-
-    // 言語選択
+    // 言語ボタン
     $('#langType').change('click', function () {
-        $('#aboutTopicPot').text(langResource[$('#langType').val()].aboutTopicPot);
-        $('#resent').text(langResource[$('#langType').val()].resent);
-        $('#schedule').text(langResource[$('#langType').val()].schedule);
-    });
 
-    // 発掘ボタン
-    $('#btnStartSearch').on('click', function () {
+        let lang = $('#langType').val();
 
+        //ページ全体の言語設定を変更
+        languageChange(lang);
+
+        //ローカルストレージにJSON形式で保存
+        localData.lang = lang;
+        jsonData = JSON.stringify(localData)
+        localStorage.setItem('localDataJson', jsonData);
     });
 
     // パネルボタン
-    $('#createPanel').on('click', function () {
-        //パネル作成
-        createPanel($('#colNum').val(), $('#rowNum').val());
-        //リンク作成
+    $('#createPot').on('click', function () {
 
-        getRandomWord(langResource[$('#langType').val()].language, $('#colNum').val(), $('#rowNum').val());
+        let col = $('#colNum').val();
+        let row = $('#rowNum').val();
+        let lang = $('#langType').val();
+
+        //パネル作成
+        createPot(col, row);
+        //リンク作成
+        createTopic(languageResource[lang].language, col, row);
+
+        //ローカルストレージにJSON形式で保存
+        localData.col = col;
+        localData.row = row;
+        localData.lang = lang;
+        jsonData = JSON.stringify(localData)
+        localStorage.setItem('localDataJson', jsonData);
     });
+
 
 
 
