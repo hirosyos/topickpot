@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/word.js"></script> <!-- 単語機能 -->
-    <script src="js/search.js"></script> <!-- 検索機能 -->
     <script src="js/history.js"></script> <!-- 履歴機能 -->
-    <script src="js/share.js"></script> <!-- 共有機能 -->
     <script src="js/create.js"></script> <!-- HTML動的生成機能 -->
     <script src="js/language.js"></script> <!-- 多言語対応機能 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -17,60 +14,36 @@
 </head>
 
 <header>
+    <!-- タイトルと説明 -->
     <h1 id='aboutTitle' class='title'>ToPickPot</h1>
     <p id='aboutTopicPot'></p>
 </header>
 
 <div class='menuBar'>
+    <!-- 言語セレクトフォーム -->
     <p id='aboutLangType'>language</p>
+    <select name="" id="langType" type="texst"></select>
 
-    <select name="" id="langType" type="texst">
-        <option value="0">English</option>
-        <option value="1">français</option>
-        <option value="2">Deutsch</option>
-        <option value="3">español</option>
-        <option value="4">日本語</option>
-        <option value="5">русский</option>
-        <option value="6">italiano</option>
-        <option value="7">中文</option>
-    </select>
-
+    <!-- 列セレクトフォーム -->
     <p id='aboutColmn'>column</p>
+    <select name="" id="colNum" type="number"></select>
 
-    <select name="" id="colNum" type="number">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-    </select>
-
+    <!-- 行セレクトフォーム -->
     <p id='aboutRow'>Row</p>
+    <select name="" id="rowNum" type="number"></select>
 
-    <select name="" id="rowNum" type="number">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-    </select>
-    <button id='createPot'>Let's topicpot !!</button>
+    <!-- ToPickPotボタン -->
+    <button id='createPot'>Let's ToPickPot !!</button>
 </div>
 
 <body>
-    <div id='searchPanel' class='searchResult'>
-    </div>
+    <!-- ToPickPot表示領域 -->
+    <div id='searchPanel' class='searchResult'></div>
+
+    <!-- 検索履歴表示領域 -->
     <h2 id='aboutResent'></h2>
+
+    <!-- 今後の予定表示領域 -->
     <h2 id='aboutSchedule'></h2>
 </body>
 
@@ -86,6 +59,9 @@
 
 
 <script>
+    //定数定義
+    const COLMAX = 10;
+    const ROWMAX = 10;
 
     //ローカルデータ
     let localData;
@@ -107,51 +83,45 @@
         jsonData = localStorage.getItem('localDataJson');
         localData = JSON.parse(jsonData);
     }
+    //言語セレクトフォーム作成
+    createLangForm();
     $('#langType').val(localData.lang);
+
+    //列セレクトフォーム作成
+    createColForm(COLMAX);
     $('#colNum').val(localData.col);
+
+    //行セレクトフォーム作成
+    createRowForm(ROWMAX);
     $('#rowNum').val(localData.row);
 
-    //ページの言語設定変更
-    languageChange(localData.lang);
-    //トピックポット作成
-    createPot(localData.col, localData.row);
-    //リンク作成
-    createTopic(languageResource[localData.lang].language, localData.col, localData.row);
+
+    //言語設定とトピックポット作成
+    createToPickPot(localData.lang, localData.col, localData.row);
 
 
-    // 言語ボタン
-    $('#langType').change('click', function () {
+    // 言語ボタン、列ボタン、行ボタン、変化イベント
+    $('#langType,#colNum,#rowNum,#createPot').change('click', function () {
 
-        let lang = $('#langType').val();
+        let colNum = $('#colNum').val();
+        let rowNum = $('#rowNum').val();
+        let langNo = $('#langType').val();
 
-        //ページ全体の言語設定を変更
-        languageChange(lang);
-
-        //ローカルストレージにJSON形式で保存
-        localData.lang = lang;
-        jsonData = JSON.stringify(localData)
-        localStorage.setItem('localDataJson', jsonData);
+        //言語設定とトピックポット作成
+        createToPickPot(langNo, colNum, rowNum);
     });
 
-    // パネルボタン
+    // トピックポットボタン押下イベント
     $('#createPot').on('click', function () {
 
-        let col = $('#colNum').val();
-        let row = $('#rowNum').val();
-        let lang = $('#langType').val();
+        let colNum = $('#colNum').val();
+        let rowNum = $('#rowNum').val();
+        let langNo = $('#langType').val();
 
-        //パネル作成
-        createPot(col, row);
-        //リンク作成
-        createTopic(languageResource[lang].language, col, row);
-
-        //ローカルストレージにJSON形式で保存
-        localData.col = col;
-        localData.row = row;
-        localData.lang = lang;
-        jsonData = JSON.stringify(localData)
-        localStorage.setItem('localDataJson', jsonData);
+        //言語設定とトピックポット作成
+        createToPickPot(langNo, colNum, rowNum);
     });
+
 
 
 

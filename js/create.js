@@ -6,6 +6,34 @@
  */
 
 /* 
+* ToPickPotの作成
+* @about 列と行の数分のPotをテーブルで作成する
+* @param 言語番号
+* @param 列の数
+* @param 行の数
+*/
+function createToPickPot(langNo, colNum, rowNum) {
+
+    languageChange(langNo);
+    //トピックポット作成
+    createPot(colNum, rowNum);
+    //トピックリンク作成
+    createTopic(langNo, colNum, rowNum);
+
+    //ローカルストレージから読み出し
+    let jsonData = localStorage.getItem('localDataJson');
+    let localData = JSON.parse(jsonData);
+
+    //ローカルストレージにJSON形式で保存
+    localData.lang = langNo;
+    localData.col = colNum;
+    localData.row = rowNum;
+
+    jsonData = JSON.stringify(localData)
+    localStorage.setItem('localDataJson', jsonData);
+}
+
+/* 
  * Potの作成
  * @about 列と行の数分のPotをテーブルで作成する
  * @param 列の数
@@ -32,12 +60,13 @@ function createPot(colNum, rowNum) {
 /*
  * トピック作成
  * @about 列と行の数分作成されているPotの上にトピックを乗せる
- * @param 言語
+ * @param 言語番号
  * @param 列の数
  * @param 行の数
  */
-function createTopic(langType, colNum, rowNum) {
+function createTopic(langNo, colNum, rowNum) {
 
+    let langType = languageResource[langNo].language;
 
     //WIkipediaのAPIのURL
     let urlWikipedia = `https://${langType}.wikipedia.org/w/api.php`;
@@ -84,4 +113,40 @@ function createTopic(langType, colNum, rowNum) {
         .catch(function (error) {
             console.log(error);
         });
+}
+
+/*
+ * 言語セレクトフォーム作成
+ * @about 
+ */
+function createLangForm() {
+    let htmlText;
+    for (let i = 0; i < languageResource.length; i++) {
+        htmlText += `<option value=${i}>${languageResource[i].langText}</option>`;
+    }
+    $('#langType').html(htmlText);
+}
+
+/*
+ * 列セレクトフォーム作成
+ * @param 列の最大数
+ */
+function createColForm(colMax) {
+    let htmlText;
+    for (let i = 1; i <= colMax; i++) {
+        htmlText += `<option value=${i}>${i}</option>`;
+    }
+    $('#colNum').html(htmlText);
+}
+
+/*
+ * 行セレクトフォーム作成
+ * @param 行の最大数
+ */
+function createRowForm(rowMax) {
+    let htmlText;
+    for (let i = 1; i <= rowMax; i++) {
+        htmlText += `<option value=${i}>${i}</option>`;
+    }
+    $('#rowNum').html(htmlText);
 }
