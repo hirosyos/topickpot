@@ -47,7 +47,7 @@ function createPot(colNum, rowNum) {
         for (let row = 0; row < rowNum; row++) {
             htmlText += `
                             <td>
-                                <a id='panel_${col}-${row}' href='' target='_blank' rel='noopener noreferrer'></a>
+                                <a id='panel_${col}-${row}' name='' class='' href='' target='_blank' rel='noopener noreferrer'></a>
                             </td> `
         }
         htmlText += '</tr>'
@@ -104,6 +104,8 @@ function createTopic(langNo, colNum, rowNum) {
                 for (let row = 0; row < rowNum; row++) {
                     //Google検索のパラメータ追加
                     console.log(`#panel_${col}-${row}`);
+                    // $(`#panel_${col}-${row}`).attr('name', 'tNameLink');
+                    // $(`#panel_${col}-${row}`).attr('class', 'tLink');
                     $(`#panel_${col}-${row}`).attr('href', urlGoogle + randoms[col * rowNum + row].title);
                     $(`#panel_${col}-${row}`).text(randoms[col * rowNum + row].title);
                 }

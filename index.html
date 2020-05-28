@@ -10,6 +10,31 @@
     <script src="js/language.js"></script> <!-- 多言語対応機能 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBHcr2ydRlHzJAifdx5pRjZgGvgaWMmkr8",
+            authDomain: "topickpot.firebaseapp.com",
+            databaseURL: "https://topickpot.firebaseio.com",
+            projectId: "topickpot",
+            storageBucket: "topickpot.appspot.com",
+            messagingSenderId: "934511938847",
+            appId: "1:934511938847:web:03c6196d553838e0a5742a",
+            measurementId: "G-FRCZ4E0ESP"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+
     <title>ToPickPot</title>
 </head>
 
@@ -22,15 +47,15 @@
 <div class='menuBar'>
     <!-- 言語セレクトフォーム -->
     <p id='aboutLangType'>language</p>
-    <select name="" id="langType" type="texst"></select>
+    <select name="selectForm" id="langType" type="texst"></select>
 
     <!-- 列セレクトフォーム -->
     <p id='aboutColmn'>column</p>
-    <select name="" id="colNum" type="number"></select>
+    <select name="selectForm" id="colNum" type="number"></select>
 
     <!-- 行セレクトフォーム -->
     <p id='aboutRow'>Row</p>
-    <select name="" id="rowNum" type="number"></select>
+    <select name="selectForm" id="rowNum" type="number"></select>
 
     <!-- ToPickPotボタン -->
     <button id='createPot'>Let's ToPickPot !!</button>
@@ -56,7 +81,6 @@
         </tr>
     </table>
 </footer>
-
 
 <script>
     //定数定義
@@ -123,6 +147,68 @@
     });
 
 
+
+
+
+    //トピックリンククリックイベント
+    $('#searchPanel a').on('click', function (e) {
+        console.log('searchPanelの子孫のa');
+
+        let topic = $(this).text();
+        let lang = $('#langType').val();
+        console.log(topic);
+
+        //firestoreにデータを送信
+
+        const db = firebase.firestore().collection('topickpot');
+
+        // db.doc(topic).get().then(function (doc) {
+        //     console.log(doc);
+        // })
+
+
+        // const dataObject = {
+        //     topic: topic,
+        //     lang: lang,
+        //     time: firebase.firestore.FieldValue.serverTimestamp(),
+        //     connt: 0,
+        // }
+        // db.doc(topic).set(dataObject);
+
+
+        db.doc(topic).get().then(function (doc) {
+            console.log('ok')
+            if (doc.exists) {
+                //データが取得できたときの処理
+                console.log("Document data:", doc.data());
+                const dataObject = {
+                    topic: topic,
+                    lang: lang,
+                    time: firebase.firestore.FieldValue.serverTimestamp(),
+                    connt: 1,
+                }
+
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+                const dataObject = {
+                    topic: topic,
+                    lang: lang,
+                    time: firebase.firestore.FieldValue.serverTimestamp(),
+                    connt: 1,
+                }
+                db.doc(topic).set(dataObject);
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        });
+
+
+
+        // return false;
+        // e.preventDefault();
+
+    });
 
 
 
