@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html id='htmlLang' lang="ja">
+<!-- <html lang="ja"> -->
+
+</html>
 
 <head>
     <meta charset="UTF-8">
@@ -9,32 +12,6 @@
     <script src="js/create.js"></script> <!-- HTML動的生成機能 -->
     <script src="js/language.js"></script> <!-- 多言語対応機能 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-            https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
-
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyBHcr2ydRlHzJAifdx5pRjZgGvgaWMmkr8",
-            authDomain: "topickpot.firebaseapp.com",
-            databaseURL: "https://topickpot.firebaseio.com",
-            projectId: "topickpot",
-            storageBucket: "topickpot.appspot.com",
-            messagingSenderId: "934511938847",
-            appId: "1:934511938847:web:03c6196d553838e0a5742a",
-            measurementId: "G-FRCZ4E0ESP"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-    </script>
-
     <title>ToPickPot</title>
 </head>
 
@@ -67,9 +44,9 @@
 
     <!-- 検索履歴表示領域 -->
     <h2 id='aboutResent'></h2>
+    <button id='deleteHistory'>delete history</button>
+    <div id='resentList'></div>
 
-    <!-- 今後の予定表示領域 -->
-    <h2 id='aboutSchedule'></h2>
 </body>
 
 <footer>
@@ -95,9 +72,18 @@
     if (localStorage.getItem('localDataJson') === null) {
         //ローカルストレージの初期設定(デフォルトは日本語の3x3)
         localData = {
-            lang: '4',
-            col: '3',
-            row: '3',
+            lang: '4',      //ページの言語
+            col: '3',       //ページの列
+            row: '3',       //ページの行
+            his: {
+                cnt: '0',    //履歴のカウンタ
+                max: '100',  //履歴の最大保持数
+                // ary: [{      //履歴のオブジェクトの配列
+                //     // topic: '',
+                //     // lang: '',
+                // }],
+                ary: [],
+            },
         }
         jsonData = JSON.stringify(localData)
         localStorage.setItem('localDataJson', jsonData);
@@ -107,6 +93,10 @@
         jsonData = localStorage.getItem('localDataJson');
         localData = JSON.parse(jsonData);
     }
+
+    //言語設定
+    languageChange(localData.lang);
+
     //言語セレクトフォーム作成
     createLangForm();
     $('#langType').val(localData.lang);
@@ -119,10 +109,13 @@
     createRowForm(ROWMAX);
     $('#rowNum').val(localData.row);
 
-
     //言語設定とトピックポット作成
     createToPickPot(localData.lang, localData.col, localData.row);
 
+    //検索履歴作成
+    if (localData.his.cnt != 0) {
+        createSearchHistory();
+    }
 
     // 言語ボタン、列ボタン、行ボタン、変化イベント
     $('#langType,#colNum,#rowNum,#createPot').change('click', function () {
@@ -146,67 +139,53 @@
         createToPickPot(langNo, colNum, rowNum);
     });
 
+    // 履歴削除ボタン押下イベント
+    $('#deleteHistory').on('click', function () {
 
+        //ローカルストレージから読み出し
+        let jsonData = localStorage.getItem('localDataJson');
+        let localData = JSON.parse(jsonData);
 
+        localData.his.ary = [];
+
+        localData.his.cnt = 0;
+
+        jsonData = JSON.stringify(localData)
+        localStorage.setItem('localDataJson', jsonData);
+
+        //検索履歴作成
+        createSearchHistory();
+    });
 
 
     //トピックリンククリックイベント
-    $('#searchPanel a').on('click', function (e) {
+    $('#searchPanel').on('click', 'a[name="topicLink"]', function () {
+        // $('#searchPanel').on('click', 'a[name="topicLink"]', function () {
+        // $('#searchPanel a').on('click', function (e) {
         console.log('searchPanelの子孫のa');
 
         let topic = $(this).text();
-        let lang = $('#langType').val();
-        console.log(topic);
+        let langNo = $('#langType').val();
 
-        //firestoreにデータを送信
+        //ローカルストレージから読み出し
+        let jsonData = localStorage.getItem('localDataJson');
+        let localData = JSON.parse(jsonData);
 
-        const db = firebase.firestore().collection('topickpot');
+        let tmp = {
+            topic: topic,
+            lang: langNo,
+        }
+        localData.his.ary.unshift(tmp);
 
-        // db.doc(topic).get().then(function (doc) {
-        //     console.log(doc);
-        // })
+        localData.his.cnt++;
 
+        jsonData = JSON.stringify(localData)
+        localStorage.setItem('localDataJson', jsonData);
 
-        // const dataObject = {
-        //     topic: topic,
-        //     lang: lang,
-        //     time: firebase.firestore.FieldValue.serverTimestamp(),
-        //     connt: 0,
-        // }
-        // db.doc(topic).set(dataObject);
-
-
-        db.doc(topic).get().then(function (doc) {
-            console.log('ok')
-            if (doc.exists) {
-                //データが取得できたときの処理
-                console.log("Document data:", doc.data());
-                const dataObject = {
-                    topic: topic,
-                    lang: lang,
-                    time: firebase.firestore.FieldValue.serverTimestamp(),
-                    connt: 1,
-                }
-
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-                const dataObject = {
-                    topic: topic,
-                    lang: lang,
-                    time: firebase.firestore.FieldValue.serverTimestamp(),
-                    connt: 1,
-                }
-                db.doc(topic).set(dataObject);
-            }
-        }).catch(function (error) {
-            console.log("Error getting document:", error);
-        });
+        //検索履歴作成
+        createSearchHistory();
 
 
-
-        // return false;
-        // e.preventDefault();
 
     });
 

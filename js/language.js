@@ -114,6 +114,7 @@ const languageResource = [
  * @param 言語
  */
 function languageChange(langType) {
+    $('#htmlLang').attr('lang', languageResource[langType].language);
     $('#aboutTopicPot').text(languageResource[langType].aboutTopicPot);
     $('#aboutResent').text(languageResource[langType].resent);
     $('#aboutSchedule').text(languageResource[langType].schedule);

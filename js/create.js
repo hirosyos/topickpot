@@ -47,7 +47,7 @@ function createPot(colNum, rowNum) {
         for (let row = 0; row < rowNum; row++) {
             htmlText += `
                             <td>
-                                <a id='panel_${col}-${row}' name='' class='' href='' target='_blank' rel='noopener noreferrer'></a>
+                                <a id='panel_${col}-${row}' name='topicLink' class='' href='' target='_blank' rel='noopener noreferrer'></a>
                             </td> `
         }
         htmlText += '</tr>'
@@ -151,4 +151,28 @@ function createRowForm(rowMax) {
         htmlText += `<option value=${i}>${i}</option>`;
     }
     $('#rowNum').html(htmlText);
+}
+
+
+
+/*
+ * 検索履歴作成
+ * @param 
+ */
+function createSearchHistory() {
+
+    //ローカルストレージから読み出し
+    let jsonData = localStorage.getItem('localDataJson');
+    let localData = JSON.parse(jsonData);
+
+    //今までの検索トピックに値を反映
+    let htmlText = '<ul>';
+    for (let i = 0; i < localData.his.ary.length; i++) {
+        //Google検索のURL
+        let urlGoogle = `http:google.com/search?hl=${localData.his.ary[i].lang}&q=${localData.his.ary[i].topic}`;
+        //リンク作成
+        htmlText += `<li><a href='${urlGoogle}' target='_blank' rel='noopener noreferrer'>${localData.his.ary[i].topic}</a></li>`
+    }
+    htmlText += '</ul>';
+    $('#resentList').html(htmlText);
 }
