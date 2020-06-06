@@ -52,3 +52,12 @@ header{
     /* display: table-cell; */
     /* vertical-align: middle; */
 }
+
+/* footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+} */
+.profile{
+    text-align:center;
+}
