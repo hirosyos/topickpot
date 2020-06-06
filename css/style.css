@@ -4,12 +4,13 @@ body{
 	margin-left:auto;
     margin-right:auto;
     text-align:center;
+    font-family: 'Noto Sans', sans-serif;
 
 }
 header{
     padding:0;
     text-align:center;
-	margin:0px 0px 0px 0px; /*上右下左*/
+    margin:0px 0px 0px 0px; /*上右下左*/
 }
 
 .title{
@@ -23,7 +24,7 @@ header{
 	align-items:center;
 }
 .menuBar select{
-    margin:0px 20px 0px 0px; /*上右下左*/
+    margin:0px 20px 0px 10px; /*上右下左*/
 }
 
 .searchResult{
