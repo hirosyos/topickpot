@@ -116,4 +116,15 @@ $('#favoriteList').on('click', 'button[name="delBtn"]', function () {
     createFav();
 });
 
+/**
+ * 履歴 初期化ボタン 押下イベント
+ */
+$('#init').on('click', function () {
+
+    //ローカルストレージ削除
+    localStorage.removeItem('localDataJson');
+
+    //リロード
+    location.reload();
+});
 
