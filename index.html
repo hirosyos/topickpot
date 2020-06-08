@@ -16,31 +16,26 @@
     <!-- タイトルと説明 -->
     <h1 id='aboutTitle' class='title'>ToPickPot</h1>
     <p id='aboutTopicPot'></p>
+
     <div class='menuBox'>
         <!-- 言語セレクトフォーム -->
         <p id='aboutLangType'>language</p>
         <select name="selectForm" id="langType" type="texst"></select>
 
-        <!-- 列セレクトフォーム -->
-        <p id='aboutColmn'>column</p>
-        <select name="selectForm" id="colNum" type="number"></select>
-
-        <!-- 行セレクトフォーム -->
-        <p id='aboutRow'>Row</p>
-        <select name="selectForm" id="rowNum" type="number"></select>
+        <!-- パネル数セレクトフォーム -->
+        <p id='aboutPanelNumber'>Number</p>
+        <select name="selectForm" id="panelNum" type="number"></select>
 
         <!-- ToPickPotボタン -->
         <button id='createSearchPanel'>ToPickPot!</button>
     </div>
 </header>
 
-
-
 <body>
-    <!-- 検索結果パネル表示領域 -->
+    <!-- 検索パネル表示領域 -->
     <div id='searchPanelBox' class='searchResultBox'></div>
 
-    <!-- 検索結果パネル表示の下には履歴とお気に入りと作者情報並べる -->
+    <!-- 検索パネル表示の下には履歴とお気に入りと作者情報並べる -->
     <div class='actionResultBox'>
 
         <!-- 検索履歴表示領域 -->
@@ -127,8 +122,7 @@
 
 <script>
     //定数定義
-    const COLMAX = 10;
-    const ROWMAX = 10;
+    const PANELMAX = 100;
 
     //ローカルデータ
     let localData;
@@ -139,8 +133,7 @@
         //ローカルストレージの初期設定(デフォルトは日本語の3x3)
         localData = {
             lang: '4',      //ページの言語
-            col: '3',       //ページの列
-            row: '3',       //ページの行
+            panelNum: '9',    //パネルの数
             his: {
                 cnt: '0',    //履歴のカウンタ
                 max: '100',  //履歴の最大保持数
@@ -168,16 +161,12 @@
     createLangForm();
     $('#langType').val(localData.lang);
 
-    //列セレクトフォーム作成
-    createColForm(COLMAX);
-    $('#colNum').val(localData.col);
-
-    //行セレクトフォーム作成
-    createRowForm(ROWMAX);
-    $('#rowNum').val(localData.row);
+    //パネル数セレクトフォーム作成
+    createPanelNumForm(PANELMAX);
+    $('#panelNum').val(localData.panelNum);
 
     //言語設定とトピックポット作成
-    createToPickPot(localData.lang, localData.col, localData.row);
+    createSearchPanel(localData.lang, localData.panelNum);
 
     //履歴作成
     if (localData.his.cnt != 0) {

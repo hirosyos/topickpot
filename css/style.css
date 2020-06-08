@@ -34,8 +34,10 @@ header{
 /* 検索結果表示領域
  */
 .searchResultBox{
-	display:flex;
-	justify-content:center;
+    display:flex;              /* flexbox化*/
+    flex-direction:row;           /* 並ぶ方向 */
+    flex-wrap: wrap;              /* 回り込み */
+	justify-content:center;    /* 配置スペース*/
 	align-items:center;
 }
 .searchResultBox table{
@@ -48,7 +50,6 @@ header{
     background-color:lightblue;
     background-image:url('../img/syokki_osara.png');
     background-size: cover;
-
 }
 .searchResultBox td a{
     display:block;
@@ -59,6 +60,14 @@ header{
     /* font-size:1vw; */
     /* display: table-cell; */
     /* vertical-align: middle; */
+}
+
+.searchResultBox div{
+    width:150px;
+    height:100px;
+    background-color:lightblue;
+    background-image:url('../img/syokki_osara.png');
+    background-size: cover;
 }
 
 /**

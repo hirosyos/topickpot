@@ -6,25 +6,28 @@
  */
 
 // 言語ボタン、列ボタン、行ボタン、変化イベント
-$('#langType,#colNum,#rowNum,#createSearchPanel').change('click', function () {
+// $('#langType,#colNum,#rowNum,#createSearchPanel').change('click', function () {
+$('#langType,#panelNum,#rowNum,#createSearchPanel').change('click', function () {
 
-    let colNum = $('#colNum').val();
-    let rowNum = $('#rowNum').val();
+    // let colNum = $('#colNum').val();
+    // let rowNum = $('#rowNum').val();
+    let panelNum = $('#panelNum').val();
     let langNo = $('#langType').val();
 
     //言語設定とトピックポット作成
-    createToPickPot(langNo, colNum, rowNum);
+    createSearchPanel(langNo, panelNum);
 });
 
 // 検索ボタン押下イベント
 $('#createSearchPanel').on('click', function () {
 
-    let colNum = $('#colNum').val();
-    let rowNum = $('#rowNum').val();
+    // let colNum = $('#colNum').val();
+    // let rowNum = $('#rowNum').val();
+    let panelNum = $('#panelNum').val();
     let langNo = $('#langType').val();
 
     //言語設定とトピックポット作成
-    createToPickPot(langNo, colNum, rowNum);
+    createSearchPanel(langNo, panelNum);
 });
 
 
