@@ -1,6 +1,5 @@
 body{
     background-color:lightgoldenrodyellow;
-    /* width: 960px; */
 	margin-left:auto;
     margin-right:auto;
     text-align:center;
@@ -11,6 +10,7 @@ header{
     padding:0;
     text-align:center;
     margin:0px 0px 0px 0px; /*上右下左*/
+    font-family: 'Noto Sans', sans-serif;
 }
 
 .title{
@@ -18,6 +18,9 @@ header{
     margin:0px 0px 0px 0px; /*上右下左*/
 }
 
+/**
+/* メニューバー 
+ */
 .menuBar{
     display:flex;
 	justify-content:center;
@@ -27,16 +30,19 @@ header{
     margin:0px 20px 0px 10px; /*上右下左*/
 }
 
-.searchResult{
+/**
+/* 検索結果表示領域
+ */
+.searchResultBox{
 	display:flex;
 	justify-content:center;
 	align-items:center;
 }
-.searchResult table{
+.searchResultBox table{
     text-align:center;
     margin:40px 0px 40px 0px; /*上右下左*/
 }
-.searchResult td{
+.searchResultBox td{
     width:150px;
     height:100px;
     background-color:lightblue;
@@ -44,7 +50,7 @@ header{
     background-size: cover;
 
 }
-.searchResult td a{
+.searchResultBox td a{
     display:block;
     width:100%;
     height:100%;
@@ -53,11 +59,61 @@ header{
     /* vertical-align: middle; */
 }
 
-/* footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-} */
-.profile{
+/**
+/* 履歴表示、お気に入り、about meの塊
+ */
+.actionResultBox{
+    display:flex;                 /* フレックスボックス化*/
+    flex-direction:row;           /* 並ぶ方向 */
+    flex-wrap: wrap;              /* 回り込み */
+	justify-content:space-around; /* 配置スペース*/
+	align-items:stretch;
+}
+/**
+/* 履歴表示領域
+ */
+.recentBox{                       
+    display:flex;                  /* フレックスボックス化*/
+    flex-direction:column;         /* 並ぶ方向 */
+	justify-content:start;         /* 配置スペース*/  
+    align-items:center;               
+    text-align:left;               /* ボックスの中身の配置 */  
+    width:300px; 
+}
+.recentLink{
+    width:250px;
+}
+/**
+/* お気に入り表示領域
+ */
+.favoriteBox{
+    display:flex;                  /* フレックスボックスにする*/
+    flex-direction:column;         /* フレックスボックス縦並び*/ 
+    justify-content:start;         /* フレックスボックススタート配置*/
+    align-items:center; 
+        width:300px; 
+}
+/**
+/* about me表示領域
+ */
+.aboutMeBox{
+    display:flex;
+    flex-direction:column;
+	justify-content:start;
+    align-items:center;
+        width:300px; 
+}
+
+footer {
+    background-color:rgb(191, 230, 241);
+    /* width: 960px; */
+	margin-left:auto;
+    margin-right:auto;
     text-align:center;
+    font-family: 'Noto Sans', sans-serif;
+}
+.profile{
+	display:flex;
+	justify-content:center;
+	align-items:center;
 }

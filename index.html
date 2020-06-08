@@ -20,82 +20,107 @@
     <!-- タイトルと説明 -->
     <h1 id='aboutTitle' class='title'>ToPickPot</h1>
     <p id='aboutTopicPot'></p>
+    <div class='menuBar'>
+        <!-- 言語セレクトフォーム -->
+        <p id='aboutLangType'>language</p>
+        <select name="selectForm" id="langType" type="texst"></select>
+
+        <!-- 列セレクトフォーム -->
+        <p id='aboutColmn'>column</p>
+        <select name="selectForm" id="colNum" type="number"></select>
+
+        <!-- 行セレクトフォーム -->
+        <p id='aboutRow'>Row</p>
+        <select name="selectForm" id="rowNum" type="number"></select>
+
+        <!-- ToPickPotボタン -->
+        <button id='createPot'>Let's ToPickPot !!</button>
+    </div>
 </header>
 
-<div class='menuBar'>
-    <!-- 言語セレクトフォーム -->
-    <p id='aboutLangType'>language</p>
-    <select name="selectForm" id="langType" type="texst"></select>
 
-    <!-- 列セレクトフォーム -->
-    <p id='aboutColmn'>column</p>
-    <select name="selectForm" id="colNum" type="number"></select>
-
-    <!-- 行セレクトフォーム -->
-    <p id='aboutRow'>Row</p>
-    <select name="selectForm" id="rowNum" type="number"></select>
-
-    <!-- ToPickPotボタン -->
-    <button id='createPot'>Let's ToPickPot !!</button>
-</div>
 
 <body>
-    <!-- ToPickPot表示領域 -->
-    <div id='searchPanel' class='searchResult'></div>
 
-    <!-- 検索履歴表示領域 -->
-    <h2 id='aboutResent'></h2>
-    <button id='deleteHistory'>delete history</button>
-    <div id='resentList'></div>
+    <!-- ToPickPot表示領域 -->
+    <div id='searchPanel' class='searchResultBox'></div>
+
+    <!-- ToPickPot表示の下には履歴とお気に入りと作者情報並べる -->
+    <div class='actionResultBox'>
+
+        <!-- 検索履歴表示領域 -->
+        <div class='recentBox'>
+            <h2 id='aboutResent'></h2>
+            <div id='resentList'></div>
+            <button id='deleteHistory'>delete history</button>
+        </div>
+
+        <!-- お気に入り表示領域 -->
+        <div class='favoriteBox'>
+            <h2 id='aboutFavorite'>お気に入り</h2>
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
+                data-show-count="false">Tweet</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <div id='favoriteList'></div>
+            <button id='deleteFavorite'>delete favorite</button>
+        </div>
+
+        <!-- about me表示領域 -->
+        <div class='aboutMeBox'>
+            <h2 id='aboutme'>About me</h2>
+            <div class='profile'>
+                <table>
+                    <tr>
+                        <td>
+                            <a href="https://twitter.com/miniusagi33" target='_blank'
+                                rel='noopener noreferrer'>Twitter</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="https://github.com/hirosyos" target='_blank' rel='noopener noreferrer'>github</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="https://jank.netlify.app/" target='_blank' rel='noopener noreferrer'>JanK
+                                【戦略じゃんけん】</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="https://gsgram.netlify.app/" target='_blank' rel='noopener noreferrer'>G'sグラム
+                                【G'sのキズナグラム】</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="https://funikionline.netlify.app/" target='_blank'
+                                rel='noopener noreferrer'>雰囲気オンライン【授業補助ツール】</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="https://topickpot.netlify.app/" target='_blank'
+                                rel='noopener noreferrer'>ToPickPot【新しい言葉に会いに行く】</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="https://csve.herokuapp.com/" target='_blank'
+                                rel='noopener noreferrer'>C.S.V.E【オンラインCSVエディタ】</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 
 </body>
 
 <hr>
+
 <footer>
-    <h2 id='aboutResent'>About me</h2>
-    <div class='profile'>
-        <table>
-            <tr>
-                <td>
-                    <a href="https://twitter.com/miniusagi33" target='_blank' rel='noopener noreferrer'>Twitter</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="https://github.com/hirosyos" target='_blank' rel='noopener noreferrer'>github</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="https://jank.netlify.app/" target='_blank' rel='noopener noreferrer'>JanK 【戦略じゃんけん】</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="https://gsgram.netlify.app/" target='_blank' rel='noopener noreferrer'>G'sグラム
-                        【G'sのキズナグラム】</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="https://funikionline.netlify.app/" target='_blank'
-                        rel='noopener noreferrer'>雰囲気オンライン【授業補助ツール】</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="https://topickpot.netlify.app/" target='_blank'
-                        rel='noopener noreferrer'>ToPickPot【新しい言葉に会いに行く】</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="https://csve.herokuapp.com/" target='_blank'
-                        rel='noopener noreferrer'>C.S.V.E【オンラインCSVエディタ】</a>
-                </td>
-            </tr>
-        </table>
-    </div>
 </footer>
 
 <script>
@@ -117,10 +142,11 @@
             his: {
                 cnt: '0',    //履歴のカウンタ
                 max: '100',  //履歴の最大保持数
-                // ary: [{      //履歴のオブジェクトの配列
-                //     // topic: '',
-                //     // lang: '',
-                // }],
+                ary: [],
+            },
+            fav: {
+                cnt: '0',    //履歴のカウンタ
+                max: '100',  //履歴の最大保持数
                 ary: [],
             },
         }
@@ -154,6 +180,7 @@
     //検索履歴作成
     if (localData.his.cnt != 0) {
         createSearchHistory();
+        createFavolite();  //仮置
     }
 
     // 言語ボタン、列ボタン、行ボタン、変化イベント
@@ -196,6 +223,26 @@
         createSearchHistory();
     });
 
+    // 履歴個別削除ボタン押下イベント
+    $('#resentList').on('click', 'button[name="deleteOneBtn"]', function () {
+        let delHisIndex = this.value;
+        // //ローカルストレージから読み出し
+        let jsonData = localStorage.getItem('localDataJson');
+        let localData = JSON.parse(jsonData);
+
+        localData.his.ary.splice(delHisIndex, 1);
+
+        localData.his.cnt--;
+
+        jsonData = JSON.stringify(localData)
+        localStorage.setItem('localDataJson', jsonData);
+
+        //検索履歴作成
+        createSearchHistory();
+    });
+
+
+
 
     //トピックリンククリックイベント
     $('#searchPanel').on('click', 'a[name="topicLink"]', function () {
@@ -226,7 +273,64 @@
 
     });
 
+    // 履歴リストのお気に入りボタン押下イベント
+    $('#resentList').on('click', 'button[name="favoliteOneBtn"]', function () {
 
+        let hisIndex = this.value;
+        // //ローカルストレージから読み出し
+        let jsonData = localStorage.getItem('localDataJson');
+        let localData = JSON.parse(jsonData);
+
+        let tmp = {
+            topic: localData.his.ary[hisIndex].topic,
+            lang: localData.his.ary[hisIndex].langNo,
+        }
+
+        localData.fav.ary.unshift(tmp);
+
+        localData.fav.cnt++;
+
+        jsonData = JSON.stringify(localData)
+        localStorage.setItem('localDataJson', jsonData);
+
+        //検索履歴作成
+        createFavolite();
+    });
+
+    // お気に入り全削除ボタン押下イベント
+    $('#deleteFavorite').on('click', function () {
+
+        //ローカルストレージから読み出し
+        let jsonData = localStorage.getItem('localDataJson');
+        let localData = JSON.parse(jsonData);
+
+        localData.fav.ary = [];
+
+        localData.fav.cnt = 0;
+
+        jsonData = JSON.stringify(localData)
+        localStorage.setItem('localDataJson', jsonData);
+
+        //検索履歴作成
+        createFavolite();
+    });
+    // お気に入り個別削除ボタン押下イベント
+    $('#favoriteList').on('click', 'button[name="delBtn"]', function () {
+        let delFavIndex = this.value;
+        // //ローカルストレージから読み出し
+        let jsonData = localStorage.getItem('localDataJson');
+        let localData = JSON.parse(jsonData);
+
+        localData.fav.ary.splice(delFavIndex, 1);
+
+        localData.fav.cnt--;
+
+        jsonData = JSON.stringify(localData)
+        localStorage.setItem('localDataJson', jsonData);
+
+        //検索履歴作成
+        createFavolite();
+    });
 
 </script>
 

@@ -46,9 +46,12 @@ function createPot(colNum, rowNum) {
 
         for (let row = 0; row < rowNum; row++) {
             htmlText += `
-                            <td>
-                                <a id='panel_${col}-${row}' name='topicLink' class='' href='' target='_blank' rel='noopener noreferrer'></a>
-                            </td> `
+            <td>
+                <a id='panel_${col}-${row}' 
+                name='topicLink' class='' 
+                href='' target='_blank' 
+                rel='noopener noreferrer'></a>
+            </td> `
         }
         htmlText += '</tr>'
     }
@@ -166,13 +169,59 @@ function createSearchHistory() {
     let localData = JSON.parse(jsonData);
 
     //今までの検索トピックに値を反映
-    let htmlText = '<ul>';
+    let htmlText = '<table>';
     for (let i = 0; i < localData.his.ary.length; i++) {
         //Google検索のURL
         let urlGoogle = `http:google.com/search?hl=${localData.his.ary[i].lang}&q=${localData.his.ary[i].topic}`;
         //リンク作成
-        htmlText += `<li><a href='${urlGoogle}' target='_blank' rel='noopener noreferrer'>${localData.his.ary[i].topic}</a></li>`
+        htmlText += `
+        <tr>
+            <td>
+                <button name='deleteOneBtn'
+                id='delete${i}' value='${i}'>&#x1F5D1;</button>
+            </td>
+            <td class='recentLink'>
+                <a href='${urlGoogle}' target='_blank'rel='noopener noreferrer'>
+                ${localData.his.ary[i].topic}</a>
+            </td>
+            <td>
+                <button name='favoliteOneBtn'
+                id='histry${i}' value='${i}'>♡</button>
+            </td>
+        <tr>`
     }
-    htmlText += '</ul>';
+    htmlText += '</table>';
     $('#resentList').html(htmlText);
+}
+
+/*
+ * お気に入り作成
+ * @param 
+ */
+function createFavolite() {
+
+    //ローカルストレージから読み出し
+    let jsonData = localStorage.getItem('localDataJson');
+    let localData = JSON.parse(jsonData);
+
+    //今までの検索トピックに値を反映
+    let htmlText = '<table>';
+    for (let i = 0; i < localData.fav.ary.length; i++) {
+        //Google検索のURL
+        let urlGoogle = `http:google.com/search?hl=${localData.fav.ary[i].lang}&q=${localData.fav.ary[i].topic}`;
+        //リンク作成
+        htmlText += `<tr>
+                        <td>
+                            <button name='delBtn' id='delete${i}' value='${i}'>&#x1F5D1;</button>
+                        </td>
+                        <td>
+                            <a href='${urlGoogle}' target='_blank' rel='noopener noreferrer'>${localData.fav.ary[i].topic}</a>
+                        </td>
+                        <td>
+                            <button name='tweetBtn' id='fav${i}' value='${i}'>♡</button>
+                        </td>
+                    <tr>`
+    }
+    htmlText += '</table>';
+    $('#favoriteList').html(htmlText);
 }

@@ -13,12 +13,16 @@ const languageResource = [
         langText: 'English',
         aboutTopicPot: 'topicpot is a service that provides up to 100 topics at the same time.',
         resent: 'Recently chosen topic',
+
         schedule: 'Schedule',
 
         aboutLang: 'language',
         column: 'column',
         row: 'row',
         deleteHistory: 'delete history',
+
+        favolite: 'favolite',
+        delFavo: '',
     },
     {
         //フランス語
