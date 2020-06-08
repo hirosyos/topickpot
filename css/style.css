@@ -1,5 +1,7 @@
 body{
     background-color:lightgoldenrodyellow;
+    background-image:url('../img/aozora30.png');
+    background-size: cover;
 	margin-left:auto;
     margin-right:auto;
     text-align:center;
@@ -7,11 +9,16 @@ body{
 
 }
 header{
-    padding:0;
     text-align:center;
+    /* background-image:url('../img/ToPickPot.png');
+    background-size: contain;
+    background-repeat: no-repeat; */
+
     margin:0px 0px 0px 0px; /*上右下左*/
     font-family: 'Noto Sans', sans-serif;
 }
+
+
 
 .title{
     font-size:64px;
@@ -42,11 +49,14 @@ header{
 }
 
 .searchResultBox div{
-    width:150px;
+    width:100px;
     height:100px;
-    background-color:lightblue;
-    background-image:url('../img/syokki_osara.png');
-    background-size: cover;
+    /* background-color:lightblue; */
+    /* background-image:url('../img/dish60.png'); */
+    background-image:url('../img/sara_kirinuki.png');
+    background-size: contain;
+    /* object-fit:cover; */
+
 }
 .searchResultBox  a{
     display:block;
