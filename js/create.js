@@ -14,9 +14,12 @@
 */
 function createToPickPot(langNo, colNum, rowNum) {
 
+    //言語変更
     languageChange(langNo);
+
     //トピックポット作成
-    createPot(colNum, rowNum);
+    createSearchPanel(colNum, rowNum);
+
     //トピックリンク作成
     createTopic(langNo, colNum, rowNum);
 
@@ -24,22 +27,23 @@ function createToPickPot(langNo, colNum, rowNum) {
     let jsonData = localStorage.getItem('localDataJson');
     let localData = JSON.parse(jsonData);
 
-    //ローカルストレージにJSON形式で保存
+    //各種値を保存
     localData.lang = langNo;
     localData.col = colNum;
     localData.row = rowNum;
 
+    //ローカルストレージに書き込み
     jsonData = JSON.stringify(localData)
     localStorage.setItem('localDataJson', jsonData);
 }
 
 /* 
- * Potの作成
+ * 検索パネルの作成
  * @about 列と行の数分のPotをテーブルで作成する
  * @param 列の数
  * @param 行の数
  */
-function createPot(colNum, rowNum) {
+function createSearchPanel(colNum, rowNum) {
     let htmlText = '<table>';
     for (let col = 0; col < colNum; col++) {
         htmlText += '<tr>'
@@ -57,7 +61,7 @@ function createPot(colNum, rowNum) {
     }
     htmlText += '</table>';
 
-    $('#searchPanel').html(htmlText);
+    $('#searchPanelBox').html(htmlText);
 }
 
 /*
@@ -162,7 +166,7 @@ function createRowForm(rowMax) {
  * 検索履歴作成
  * @param 
  */
-function createSearchHistory() {
+function createHis() {
 
     //ローカルストレージから読み出し
     let jsonData = localStorage.getItem('localDataJson');
@@ -180,7 +184,7 @@ function createSearchHistory() {
                 <button name='deleteOneBtn'
                 id='delete${i}' value='${i}'>&#x1F5D1;</button>
             </td>
-            <td class='recentLink'>
+            <td class='hisLink'>
                 <a href='${urlGoogle}' target='_blank'rel='noopener noreferrer'>
                 ${localData.his.ary[i].topic}</a>
             </td>
@@ -198,7 +202,7 @@ function createSearchHistory() {
  * お気に入り作成
  * @param 
  */
-function createFavolite() {
+function createFav() {
 
     //ローカルストレージから読み出し
     let jsonData = localStorage.getItem('localDataJson');
@@ -214,8 +218,9 @@ function createFavolite() {
                         <td>
                             <button name='delBtn' id='delete${i}' value='${i}'>&#x1F5D1;</button>
                         </td>
-                        <td>
-                            <a href='${urlGoogle}' target='_blank' rel='noopener noreferrer'>${localData.fav.ary[i].topic}</a>
+                        <td class='favLink'>
+                            <a href='${urlGoogle}' target='_blank' rel='noopener noreferrer'>
+                            ${localData.fav.ary[i].topic}</a>
                         </td>
                         <td>
                             <button name='tweetBtn' id='fav${i}' value='${i}'>♡</button>

@@ -8,10 +8,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/history.js"></script> <!-- 履歴機能 -->
-    <script src="js/create.js"></script> <!-- HTML動的生成機能 -->
-    <script src="js/language.js"></script> <!-- 多言語対応機能 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
     <title>ToPickPot</title>
 </head>
@@ -20,7 +16,7 @@
     <!-- タイトルと説明 -->
     <h1 id='aboutTitle' class='title'>ToPickPot</h1>
     <p id='aboutTopicPot'></p>
-    <div class='menuBar'>
+    <div class='menuBox'>
         <!-- 言語セレクトフォーム -->
         <p id='aboutLangType'>language</p>
         <select name="selectForm" id="langType" type="texst"></select>
@@ -34,29 +30,28 @@
         <select name="selectForm" id="rowNum" type="number"></select>
 
         <!-- ToPickPotボタン -->
-        <button id='createPot'>Let's ToPickPot !!</button>
+        <button id='createSearchPanel'>ToPickPot!</button>
     </div>
 </header>
 
 
 
 <body>
+    <!-- 検索結果パネル表示領域 -->
+    <div id='searchPanelBox' class='searchResultBox'></div>
 
-    <!-- ToPickPot表示領域 -->
-    <div id='searchPanel' class='searchResultBox'></div>
-
-    <!-- ToPickPot表示の下には履歴とお気に入りと作者情報並べる -->
+    <!-- 検索結果パネル表示の下には履歴とお気に入りと作者情報並べる -->
     <div class='actionResultBox'>
 
         <!-- 検索履歴表示領域 -->
-        <div class='recentBox'>
+        <div class='hisBox'>
             <h2 id='aboutResent'></h2>
             <div id='resentList'></div>
             <button id='deleteHistory'>delete history</button>
         </div>
 
         <!-- お気に入り表示領域 -->
-        <div class='favoriteBox'>
+        <div class='favBox'>
             <h2 id='aboutFavorite'>お気に入り</h2>
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
                 data-show-count="false">Tweet</a>
@@ -66,8 +61,8 @@
         </div>
 
         <!-- about me表示領域 -->
-        <div class='aboutMeBox'>
-            <h2 id='aboutme'>About me</h2>
+        <div class='autherBox'>
+            <h2 id='aboutme'>Auther</h2>
             <div class='profile'>
                 <table>
                     <tr>
@@ -123,6 +118,13 @@
 <footer>
 </footer>
 
+<script src="js/search.js" defer></script> <!-- 検索機能 -->
+<script src="js/history.js" defer></script> <!-- 履歴機能 -->
+<script src="js/create.js"></script> <!-- HTML動的生成機能 -->
+<script src="js/language.js"></script> <!-- 多言語対応機能 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
 <script>
     //定数定義
     const COLMAX = 10;
@@ -177,160 +179,17 @@
     //言語設定とトピックポット作成
     createToPickPot(localData.lang, localData.col, localData.row);
 
-    //検索履歴作成
+    //履歴作成
     if (localData.his.cnt != 0) {
-        createSearchHistory();
-        createFavolite();  //仮置
+        createHis();
     }
 
-    // 言語ボタン、列ボタン、行ボタン、変化イベント
-    $('#langType,#colNum,#rowNum,#createPot').change('click', function () {
-
-        let colNum = $('#colNum').val();
-        let rowNum = $('#rowNum').val();
-        let langNo = $('#langType').val();
-
-        //言語設定とトピックポット作成
-        createToPickPot(langNo, colNum, rowNum);
-    });
-
-    // トピックポットボタン押下イベント
-    $('#createPot').on('click', function () {
-
-        let colNum = $('#colNum').val();
-        let rowNum = $('#rowNum').val();
-        let langNo = $('#langType').val();
-
-        //言語設定とトピックポット作成
-        createToPickPot(langNo, colNum, rowNum);
-    });
-
-    // 履歴削除ボタン押下イベント
-    $('#deleteHistory').on('click', function () {
-
-        //ローカルストレージから読み出し
-        let jsonData = localStorage.getItem('localDataJson');
-        let localData = JSON.parse(jsonData);
-
-        localData.his.ary = [];
-
-        localData.his.cnt = 0;
-
-        jsonData = JSON.stringify(localData)
-        localStorage.setItem('localDataJson', jsonData);
-
-        //検索履歴作成
-        createSearchHistory();
-    });
-
-    // 履歴個別削除ボタン押下イベント
-    $('#resentList').on('click', 'button[name="deleteOneBtn"]', function () {
-        let delHisIndex = this.value;
-        // //ローカルストレージから読み出し
-        let jsonData = localStorage.getItem('localDataJson');
-        let localData = JSON.parse(jsonData);
-
-        localData.his.ary.splice(delHisIndex, 1);
-
-        localData.his.cnt--;
-
-        jsonData = JSON.stringify(localData)
-        localStorage.setItem('localDataJson', jsonData);
-
-        //検索履歴作成
-        createSearchHistory();
-    });
+    //お気に入り作成
+    if (localData.fav.cnt != 0) {
+        createFav();
+    }
 
 
-
-
-    //トピックリンククリックイベント
-    $('#searchPanel').on('click', 'a[name="topicLink"]', function () {
-        // $('#searchPanel').on('click', 'a[name="topicLink"]', function () {
-        // $('#searchPanel a').on('click', function (e) {
-        console.log('searchPanelの子孫のa');
-
-        let topic = $(this).text();
-        let langNo = $('#langType').val();
-
-        //ローカルストレージから読み出し
-        let jsonData = localStorage.getItem('localDataJson');
-        let localData = JSON.parse(jsonData);
-
-        let tmp = {
-            topic: topic,
-            lang: langNo,
-        }
-        localData.his.ary.unshift(tmp);
-
-        localData.his.cnt++;
-
-        jsonData = JSON.stringify(localData)
-        localStorage.setItem('localDataJson', jsonData);
-
-        //検索履歴作成
-        createSearchHistory();
-
-    });
-
-    // 履歴リストのお気に入りボタン押下イベント
-    $('#resentList').on('click', 'button[name="favoliteOneBtn"]', function () {
-
-        let hisIndex = this.value;
-        // //ローカルストレージから読み出し
-        let jsonData = localStorage.getItem('localDataJson');
-        let localData = JSON.parse(jsonData);
-
-        let tmp = {
-            topic: localData.his.ary[hisIndex].topic,
-            lang: localData.his.ary[hisIndex].langNo,
-        }
-
-        localData.fav.ary.unshift(tmp);
-
-        localData.fav.cnt++;
-
-        jsonData = JSON.stringify(localData)
-        localStorage.setItem('localDataJson', jsonData);
-
-        //検索履歴作成
-        createFavolite();
-    });
-
-    // お気に入り全削除ボタン押下イベント
-    $('#deleteFavorite').on('click', function () {
-
-        //ローカルストレージから読み出し
-        let jsonData = localStorage.getItem('localDataJson');
-        let localData = JSON.parse(jsonData);
-
-        localData.fav.ary = [];
-
-        localData.fav.cnt = 0;
-
-        jsonData = JSON.stringify(localData)
-        localStorage.setItem('localDataJson', jsonData);
-
-        //検索履歴作成
-        createFavolite();
-    });
-    // お気に入り個別削除ボタン押下イベント
-    $('#favoriteList').on('click', 'button[name="delBtn"]', function () {
-        let delFavIndex = this.value;
-        // //ローカルストレージから読み出し
-        let jsonData = localStorage.getItem('localDataJson');
-        let localData = JSON.parse(jsonData);
-
-        localData.fav.ary.splice(delFavIndex, 1);
-
-        localData.fav.cnt--;
-
-        jsonData = JSON.stringify(localData)
-        localStorage.setItem('localDataJson', jsonData);
-
-        //検索履歴作成
-        createFavolite();
-    });
 
 </script>
 
