@@ -8,6 +8,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/search.js" defer></script> <!-- 検索機能 -->
+    <script src="js/history.js" defer></script> <!-- 履歴機能 -->
+    <script src="js/create.js" defer></script> <!-- HTML動的生成機能 -->
+    <script src="js/language.js" defer></script> <!-- 多言語対応機能 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
     <title>ToPickPot</title>
 </head>
@@ -20,14 +25,14 @@
     <div class='menuBox'>
         <!-- 言語セレクトフォーム -->
         <p id='aboutLangType'>language</p>
-        <select name="selectForm" id="langType" type="texst"></select>
+        <select id="langType" type='text'></select>
 
         <!-- パネル数セレクトフォーム -->
         <p id='aboutPanelNumber'>Number</p>
-        <select name="selectForm" id="panelNum" type="number"></select>
+        <select id="panelNum" type='number'></select>
 
-        <!-- ToPickPotボタン -->
-        <button id='createSearchPanel'>ToPickPot!</button>
+        <!-- 更新ボタン -->
+        <button id='reLoad'>Go</button>
     </div>
 </header>
 
@@ -48,8 +53,6 @@
         <!-- お気に入り表示領域 -->
         <div class='favBox'>
             <h2 id='aboutFavorite'>お気に入り</h2>
-            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
-                data-show-count="false">Tweet</a>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             <div id='favoriteList'></div>
             <button id='deleteFavorite'>delete favorite</button>
@@ -57,51 +60,8 @@
 
         <!-- about me表示領域 -->
         <div class='autherBox'>
-            <h2 id='aboutme'>Auther</h2>
-            <div class='profile'>
-                <table>
-                    <tr>
-                        <td>
-                            <a href="https://twitter.com/miniusagi33" target='_blank'
-                                rel='noopener noreferrer'>Twitter</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://github.com/hirosyos" target='_blank' rel='noopener noreferrer'>github</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://jank.netlify.app/" target='_blank' rel='noopener noreferrer'>JanK
-                                【戦略じゃんけん】</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://gsgram.netlify.app/" target='_blank' rel='noopener noreferrer'>G'sグラム
-                                【G'sのキズナグラム】</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://funikionline.netlify.app/" target='_blank'
-                                rel='noopener noreferrer'>雰囲気オンライン【授業補助ツール】</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://topickpot.netlify.app/" target='_blank'
-                                rel='noopener noreferrer'>ToPickPot【新しい言葉に会いに行く】</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://csve.herokuapp.com/" target='_blank'
-                                rel='noopener noreferrer'>C.S.V.E【オンラインCSVエディタ】</a>
-                        </td>
-                    </tr>
-                </table>
+            <h2 id='aboutAuther'>Auther</h2>
+            <div id='autherList'>
             </div>
         </div>
     </div>
@@ -113,72 +73,69 @@
 <footer>
 </footer>
 
-<script src="js/search.js" defer></script> <!-- 検索機能 -->
-<script src="js/history.js" defer></script> <!-- 履歴機能 -->
-<script src="js/create.js"></script> <!-- HTML動的生成機能 -->
-<script src="js/language.js"></script> <!-- 多言語対応機能 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
 
 <script>
-    //定数定義
-    const PANELMAX = 100;
+    $(document).ready(function () {
+        //定数定義
+        const PANELMAX = 100;
 
-    //ローカルデータ
-    let localData;
-    let jsonData;
+        //ローカルデータ
+        let localData;
+        let jsonData;
 
-    //初期設定
-    if (localStorage.getItem('localDataJson') === null) {
-        //ローカルストレージの初期設定(デフォルトは日本語の3x3)
-        localData = {
-            lang: '4',      //ページの言語
-            panelNum: '9',    //パネルの数
-            his: {
-                cnt: '0',    //履歴のカウンタ
-                max: '100',  //履歴の最大保持数
-                ary: [],
-            },
-            fav: {
-                cnt: '0',    //履歴のカウンタ
-                max: '100',  //履歴の最大保持数
-                ary: [],
-            },
+        //初期設定
+        if (localStorage.getItem('localDataJson') === null) {
+            //ローカルストレージの初期設定(デフォルトは日本語の3x3)
+            localData = {
+                lang: '4',      //ページの言語
+                panelNum: '9',    //パネルの数
+                his: {
+                    cnt: '0',    //履歴のカウンタ
+                    max: '100',  //履歴の最大保持数
+                    ary: [],
+                },
+                fav: {
+                    cnt: '0',    //履歴のカウンタ
+                    max: '100',  //履歴の最大保持数
+                    ary: [],
+                },
+            }
+            jsonData = JSON.stringify(localData)
+            localStorage.setItem('localDataJson', jsonData);
         }
-        jsonData = JSON.stringify(localData)
-        localStorage.setItem('localDataJson', jsonData);
-    }
-    else {
-        //ローカルストレージから読み出し
-        jsonData = localStorage.getItem('localDataJson');
-        localData = JSON.parse(jsonData);
-    }
+        else {
+            //ローカルストレージから読み出し
+            jsonData = localStorage.getItem('localDataJson');
+            localData = JSON.parse(jsonData);
+        }
 
-    //言語設定
-    languageChange(localData.lang);
+        //言語設定
+        languageChange(localData.lang);
 
-    //言語セレクトフォーム作成
-    createLangForm();
-    $('#langType').val(localData.lang);
+        //言語セレクトフォーム作成
+        createLangForm();
+        $('#langType').val(localData.lang);
 
-    //パネル数セレクトフォーム作成
-    createPanelNumForm(PANELMAX);
-    $('#panelNum').val(localData.panelNum);
+        //パネル数セレクトフォーム作成
+        createPanelNumForm(PANELMAX);
+        $('#panelNum').val(localData.panelNum);
 
-    //言語設定とトピックポット作成
-    createSearchPanel(localData.lang, localData.panelNum);
+        //言語設定と検索パネル作成
+        createSearchPanel(localData.lang, localData.panelNum);
 
-    //履歴作成
-    if (localData.his.cnt != 0) {
-        createHis();
-    }
+        //履歴作成
+        if (localData.his.cnt != 0) {
+            createHis();
+        }
 
-    //お気に入り作成
-    if (localData.fav.cnt != 0) {
-        createFav();
-    }
+        //お気に入り作成
+        if (localData.fav.cnt != 0) {
+            createFav();
+        }
 
+        createAuther();
 
+    });
 
 </script>
 

@@ -5,33 +5,34 @@
  *
  */
 
-// 言語ボタン、列ボタン、行ボタン、変化イベント
-// $('#langType,#colNum,#rowNum,#createSearchPanel').change('click', function () {
-$('#langType,#panelNum,#rowNum,#createSearchPanel').change('click', function () {
 
-    // let colNum = $('#colNum').val();
-    // let rowNum = $('#rowNum').val();
+/*
+* 言語ボタン、パネル数ボタン 変化イベント
+*
+* 検索機能
+*
+*/
+$('#langType,#panelNum').change(function () {
+
     let panelNum = $('#panelNum').val();
     let langNo = $('#langType').val();
 
-    //言語設定とトピックポット作成
+    //言語設定と検索パネル作成
     createSearchPanel(langNo, panelNum);
 });
 
-// 検索ボタン押下イベント
-$('#createSearchPanel').on('click', function () {
+// 検索ボタン 押下イベント
+$('#reLoad').on('click', function () {
 
-    // let colNum = $('#colNum').val();
-    // let rowNum = $('#rowNum').val();
     let panelNum = $('#panelNum').val();
     let langNo = $('#langType').val();
 
-    //言語設定とトピックポット作成
+    //言語設定と検索パネル作成
     createSearchPanel(langNo, panelNum);
 });
 
 
-//トピックリンク クリックイベント
+//検索パネルリンク クリックイベント
 $('#searchPanelBox').on('click', 'a[name="topicLink"]', function () {
 
     let topic = $(this).text();
@@ -41,14 +42,15 @@ $('#searchPanelBox').on('click', 'a[name="topicLink"]', function () {
     let jsonData = localStorage.getItem('localDataJson');
     let localData = JSON.parse(jsonData);
 
+    //履歴に登録
     let tmp = {
         topic: topic,
         lang: langNo,
     }
     localData.his.ary.unshift(tmp);
-
     localData.his.cnt++;
 
+    //ローカルストレージに書き込み
     jsonData = JSON.stringify(localData)
     localStorage.setItem('localDataJson', jsonData);
 
