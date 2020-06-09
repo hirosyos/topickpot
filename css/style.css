@@ -109,7 +109,7 @@ header{
 .hisBox, .favBox,.autherBox{                       
     display:flex;                  /* フレックスボックス化*/
     flex-direction:column;         /* 並ぶ方向 */
-	justify-content:space-around;  /* 配置スペース*/  
+	justify-content:start;  /* 配置スペース*/  
     align-items:center;               
     text-align:left;               /* ボックスの中身の配置 */  
     width:350px; 
@@ -118,7 +118,7 @@ header{
 .autherBox{                       
     display:flex;                  /* フレックスボックス化*/
     flex-direction:column;         /* 並ぶ方向 */
-	justify-content:space-around;  /* 配置スペース*/  
+	justify-content:start;  /* 配置スペース*/  
     align-items:center;               
     text-align:center;             /* ボックスの中身の配置 */  
     width:350px; 
