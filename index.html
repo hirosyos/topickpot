@@ -25,15 +25,15 @@
 
     <div class='menuBox'>
         <!-- 言語セレクトフォーム -->
-        <p id='aboutLangType'>language</p>
-        <select id="langType" type='text'></select>
+        <p id='aboutLangType'>🌐</p>
+        <select class='menuForm' id="langType" type='text'></select>
 
         <!-- パネル数セレクトフォーム -->
-        <p id='aboutPanelNumber'>Number</p>
-        <select id="panelNum" type='number'></select>
+        <p id='aboutPanelNumber'>🍽</p>
+        <select class='menuForm' id="panelNum" type='number'></select>
 
-        <!-- 更新ボタン -->
-        <button id='reLoad'>Go</button>
+        <!-- 更新疑似ボタン -->
+        <button class='reLoad' id='reLoadBtn'>🔄</button>
     </div>
 </header>
 
@@ -46,14 +46,14 @@
 
         <!-- 検索履歴表示領域 -->
         <div class='hisBox'>
-            <h2 id='aboutResent'></h2>
+            <h2 id='aboutResent'>HISTORY📌</h2>
             <div id='resentList'></div>
             <button id='deleteHistory'>delete history</button>
         </div>
 
         <!-- お気に入り表示領域 -->
         <div class='favBox'>
-            <h2 id='aboutFavorite'>お気に入り</h2>
+            <h2 id='aboutFavorite'>お気に入り❤</h2>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             <div id='favoriteList'></div>
             <button id='deleteFavorite'>delete favorite</button>

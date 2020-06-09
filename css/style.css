@@ -1,5 +1,5 @@
 body{
-    background-color:lightgoldenrodyellow;
+    background-color:azure;
     background-image:url('../img/aozora30.png');
     background-size: cover;
 	margin-left:auto;
@@ -31,10 +31,26 @@ header{
 .menuBox{
     display:flex;
 	justify-content:center;
-	align-items:center;
+    align-items:center;
+    height:30px;
+    margin:0px 0px 20px 0px; /*上右下左*/
+    font-size:40px;
 }
 .menuBox select{
     margin:0px 20px 0px 10px; /*上右下左*/
+}
+.menuForm{
+    border:0px;
+    border-radius: 0.67em;
+    background-color:aliceblue;
+    text-align:center;
+    height:20px;
+}
+
+.reLoad{
+    background-color: transparent;
+    border:0px;
+    font-size:40px;
 }
 
 /**
@@ -44,7 +60,7 @@ header{
     display:flex;              /* flexbox化*/
     flex-direction:row;           /* 並ぶ方向 */
     flex-wrap: wrap;              /* 回り込み */
-	justify-content:center;    /* 配置スペース*/
+	justify-content:space-evenly;    /* 配置スペース*/
 	align-items:center;
 }
 
@@ -88,9 +104,9 @@ header{
 	justify-content:start;         /* 配置スペース*/  
     align-items:center;               
     text-align:left;               /* ボックスの中身の配置 */  
-    min-width:350px; 
+    min-width:300px; 
     min-height:60px; 
-    
+    margin:0px 20px 0px 20px; /*上右下左*/
 }
 .hisLink, .favLink, .autherLink{
     width:300px;
@@ -99,6 +115,11 @@ header{
 .autherLink{
     width:350px;
     height:60px; 
+}
+.deleteOne, .favoliteOne{
+    background-color: transparent;
+    border:0px;
+    font-size:40px;
 }
 
 

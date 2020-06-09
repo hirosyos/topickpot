@@ -175,12 +175,12 @@ const languageResource = [
 function languageChange(langType) {
     $('#htmlLang').attr('lang', languageResource[langType].language);
 
-    $('#aboutLangType').text(languageResource[langType].aboutLang);
-    $('#aboutColmn').text(languageResource[langType].column);
-    $('#aboutRow').text(languageResource[langType].row);
+    // $('#aboutLangType').text(languageResource[langType].aboutLang);
+    // $('#aboutColmn').text(languageResource[langType].column);
+    // $('#aboutRow').text(languageResource[langType].row);
 
     $('#aboutTopicPot').text(languageResource[langType].aboutTopicPot);
-    $('#aboutResent').text(languageResource[langType].resent);
+    // $('#aboutResent').text(languageResource[langType].resent);
     $('#aboutSchedule').text(languageResource[langType].schedule);
     $('#deleteHistory').text(languageResource[langType].deleteHistory);
 }

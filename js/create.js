@@ -124,8 +124,6 @@ function createHis() {
     let jsonData = localStorage.getItem('localDataJson');
     let localData = JSON.parse(jsonData);
 
-
-
     //今までの検索トピックに値を反映
     let htmlText = '<table>';
     for (let i = 0; i < localData.his.ary.length; i++) {
@@ -138,15 +136,15 @@ function createHis() {
         htmlText +=
             `<tr>
             <td>
-                <button name='deleteOneBtn'
-                id='delete${i}' value='${i}'>&#x1F5D1;</button>
+                <button class='deleteOne' name='deleteOneBtn'
+                id='delete${i}' value='${i}'>🗑</button>
             </td>
             <td class='hisLink'>
                 <a href='${urlGoogle}' target='_blank'rel='noopener noreferrer'>
                 ${localData.his.ary[i].topic}</a>
             </td>
             <td>
-                <button name='favoliteOneBtn'
+                <button class='favoliteOne' name='favoliteOneBtn'
                 id='histry${i}' value='${i}'>♡</button>
             </td>
         <tr>`
@@ -179,7 +177,7 @@ function createFav() {
         htmlText +=
             `<tr>
                 <td>
-                    <button name='delBtn' id='delete${i}' value='${i}'>&#x1F5D1;</button>
+                    <button class='deleteOne' name='delBtn' id='delete${i}' value='${i}'>&#x1F5D1;</button>
                 </td>
                 <td class='favLink'>
                     <a href='${urlGoogle}' target='_blank' rel='noopener noreferrer'>

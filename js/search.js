@@ -22,7 +22,7 @@ $('#langType,#panelNum').change(function () {
 });
 
 // 検索ボタン 押下イベント
-$('#reLoad').on('click', function () {
+$('#reLoadBtn').on('click', function () {
 
     let panelNum = $('#panelNum').val();
     let langNo = $('#langType').val();
