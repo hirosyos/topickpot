@@ -25,24 +25,6 @@ $('#deleteHistory').on('click', function () {
     createHis();
 });
 
-$('#deleteHistory').on('touchstart', function () {
-
-    //ローカルストレージから読み出し
-    let jsonData = localStorage.getItem('localDataJson');
-    let localData = JSON.parse(jsonData);
-
-    //履歴全削除
-    localData.his.ary = [];
-    localData.his.cnt = 0;
-
-    //ローカルストレージに書き込み
-    jsonData = JSON.stringify(localData)
-    localStorage.setItem('localDataJson', jsonData);
-
-    //履歴DOM表示
-    createHis();
-});
-
 /**
  * 履歴 履歴リスト 個別削除ボタン 押下イベント
  */
