@@ -12,6 +12,7 @@ const languageResource = [
         language: 'en',
         langText: 'English',
         aboutTopicPot: "I'm going to meet a new word.",
+        aboutInit: "🗑If it doesn't work, try initializing.",
 
         resent: 'Recently chosen topic',
         schedule: 'Schedule',
@@ -26,6 +27,7 @@ const languageResource = [
         language: 'fr',
         langText: 'français',
         aboutTopicPot: 'Je vais rencontrer un nouveau mot.',
+        aboutInit: "🗑Si cela ne fonctionne pas, essayez de l'initialiser.",
 
         resent: 'Sujet récemment choisi',
         schedule: 'Programme',
@@ -40,6 +42,7 @@ const languageResource = [
         language: 'de',
         langText: 'Deutsch',
         aboutTopicPot: 'Ich werde ein neues Wort kennenlernen.',
+        aboutInit: '🗑Wenn es nicht funktioniert, versuchen Sie die Initialisierung.',
 
         resent: 'Kürzlich gewähltes Thema',
         schedule: 'Zeitplan',
@@ -54,6 +57,7 @@ const languageResource = [
         language: 'es',
         langText: 'español',
         aboutTopicPot: 'Voy a conocer una nueva palabra.',
+        aboutInit: '🗑Si no funciona, intenta inicializar.',
 
         resent: 'El tema elegido recientemente',
         schedule: 'Programación',
@@ -68,6 +72,7 @@ const languageResource = [
         language: 'ja',
         langText: '日本語',
         aboutTopicPot: '新しい言葉に会いに行く',
+        aboutInit: '🗑動かない場合は初期化を試して下さい',
 
         resent: '最近選んだトピック',
         schedule: 'スケジュール',
@@ -82,6 +87,7 @@ const languageResource = [
         language: 'ru',
         langText: 'русский',
         aboutTopicPot: 'Я собираюсь встретиться с новым словом.',
+        aboutInit: '🗑Если это не сработает, попробуйте инициализировать.',
 
         resent: 'Недавно выбранные слова',
         schedule: 'Расписание',
@@ -96,6 +102,7 @@ const languageResource = [
         language: 'it',
         langText: 'italiano',
         aboutTopicPot: 'Incontrerò una nuova parola.',
+        aboutInit: '🗑Se non funziona, prova a inizializzare.',
 
         resent: 'Parole scelte di recente',
         schedule: 'Programmazione',
@@ -110,6 +117,7 @@ const languageResource = [
         language: 'zh',
         langText: '中文',
         aboutTopicPot: '我要去见一个新词。',
+        aboutInit: '🗑如果不行，就试试初始化。',
 
         resent: '最近选择的词语',
         schedule: '时间表',
@@ -124,6 +132,7 @@ const languageResource = [
         language: 'pt',
         langText: 'português',
         aboutTopicPot: 'Vou conhecer uma nova palavra.',
+        aboutInit: '🗑Se não funcionar, tente inicializar.',
 
         resent: 'Tema recentemente escolhido',
         schedule: 'Horário',
@@ -138,6 +147,7 @@ const languageResource = [
         language: 'pl',
         langText: '	polski',
         aboutTopicPot: 'Zamierzam spotkać się z nowym słowem.',
+        aboutInit: '🗑Jeśli to nie zadziała, spróbuj inicjalizować.',
 
         resent: 'Ostatnio wybrany temat',
         schedule: 'Rozkład jazdy',
@@ -152,6 +162,7 @@ const languageResource = [
         language: 'nl',
         langText: 'Nederlands',
         aboutTopicPot: 'Ik ga een nieuw woord ontmoeten.',
+        aboutInit: '🗑Als het niet werkt, probeer dan te initialiseren.',
 
         resent: 'Onlangs gekozen onderwerp',
         schedule: 'Plan',
@@ -171,6 +182,7 @@ const languageResource = [
 function languageChange(langType) {
     $('#htmlLang').attr('lang', languageResource[langType].language);
     $('#aboutTopicPot').text(languageResource[langType].aboutTopicPot);
+    $('#aboutInit').text(languageResource[langType].aboutInit);
 
     // $('#aboutLangType').text(languageResource[langType].aboutLang);
     // $('#aboutColmn').text(languageResource[langType].column);

@@ -107,7 +107,7 @@ header{
 	justify-content:start;         /* 配置スペース*/  
     align-items:center;               
     text-align:left;               /* ボックスの中身の配置 */  
-    min-width:300px; 
+    width:350px; 
     min-height:60px; 
     margin:0px 10px 0px 10px; /*上右下左*/
 }
@@ -115,15 +115,13 @@ header{
     width:300px;
     height:30px; 
 }
-.autherLink{
-    width:350px;
-    height:30px; 
-}
-.deleteOne, .favoliteOne, .delHis, .delFav{
+.deleteOne, .favoliteOne, .delHis, .delFav, .delAll{
     background-color: transparent;
     border:0px;
     font-size:30px;
 }
+
+
 footer {
 	margin-left:auto;
     margin-right:auto;
