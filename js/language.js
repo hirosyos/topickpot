@@ -11,28 +11,24 @@ const languageResource = [
         langNo: 0,
         language: 'en',
         langText: 'English',
-        aboutTopicPot: 'topicpot is a service that provides up to 100 topics at the same time.',
+        aboutTopicPot: "I'm going to meet a new word.",
+
         resent: 'Recently chosen topic',
-
         schedule: 'Schedule',
-
         aboutLang: 'language',
         column: 'column',
         row: 'row',
         deleteHistory: 'delete history',
-
-        favolite: 'favolite',
-        delFavo: '',
     },
     {
         //フランス語
         langNo: 1,
         language: 'fr',
         langText: 'français',
-        aboutTopicPot: 'topicpot est un service qui fournit jusqu\'à 100 sujets en même temps.',
+        aboutTopicPot: 'Je vais rencontrer un nouveau mot.',
+
         resent: 'Sujet récemment choisi',
         schedule: 'Programme',
-
         aboutLang: 'langue',
         column: 'colonne',
         row: 'ligne',
@@ -43,10 +39,10 @@ const languageResource = [
         langNo: 2,
         language: 'de',
         langText: 'Deutsch',
-        aboutTopicPot: 'topicpot ist ein Dienst, der bis zu 100 Themen gleichzeitig anbietet.',
+        aboutTopicPot: 'Ich werde ein neues Wort kennenlernen.',
+
         resent: 'Kürzlich gewähltes Thema',
         schedule: 'Zeitplan',
-
         aboutLang: 'Sprache',
         column: 'Spalte',
         row: 'Reihe',
@@ -57,10 +53,10 @@ const languageResource = [
         langNo: 3,
         language: 'es',
         langText: 'español',
-        aboutTopicPot: 'topicpot es un servicio que proporciona hasta 100 temas al mismo tiempo.',
+        aboutTopicPot: 'Voy a conocer una nueva palabra.',
+
         resent: 'El tema elegido recientemente',
         schedule: 'Programación',
-
         aboutLang: 'idioma',
         column: 'columna',
         row: 'fila',
@@ -71,10 +67,10 @@ const languageResource = [
         langNo: 4,
         language: 'ja',
         langText: '日本語',
-        aboutTopicPot: 'topicpotは、最大100個のトピックを同時に提供するサービスです。',
+        aboutTopicPot: '新しい言葉に会いに行く',
+
         resent: '最近選んだトピック',
         schedule: 'スケジュール',
-
         aboutLang: '言語',
         column: '列',
         row: '行',
@@ -85,10 +81,10 @@ const languageResource = [
         langNo: 5,
         language: 'ru',
         langText: 'русский',
-        aboutTopicPot: 'topicpot - это услуга, которая предоставляет до 100 тем одновременно.',
+        aboutTopicPot: 'Я собираюсь встретиться с новым словом.',
+
         resent: 'Недавно выбранные слова',
         schedule: 'Расписание',
-
         aboutLang: 'язык',
         column: 'рубрика',
         row: 'строка',
@@ -99,10 +95,10 @@ const languageResource = [
         langNo: 6,
         language: 'it',
         langText: 'italiano',
-        aboutTopicPot: 'topicpot è un servizio che fornisce fino a 100 argomenti contemporaneamente.',
+        aboutTopicPot: 'Incontrerò una nuova parola.',
+
         resent: 'Parole scelte di recente',
         schedule: 'Programmazione',
-
         aboutLang: 'lingua',
         column: 'rubrica',
         row: 'riga',
@@ -113,10 +109,10 @@ const languageResource = [
         langNo: 7,
         language: 'zh',
         langText: '中文',
-        aboutTopicPot: 'topicpot是一个可以同时提供多达100个话题的服务。',
+        aboutTopicPot: '我要去见一个新词。',
+
         resent: '最近选择的词语',
         schedule: '时间表',
-
         aboutLang: '语言',
         column: '专栏',
         row: '行',
@@ -127,10 +123,10 @@ const languageResource = [
         langNo: 8,
         language: 'pt',
         langText: 'português',
-        aboutTopicPot: 'topicpot é um serviço que oferece até 100 tópicos ao mesmo tempo',
+        aboutTopicPot: 'Vou conhecer uma nova palavra.',
+
         resent: 'Tema recentemente escolhido',
         schedule: 'Horário',
-
         aboutLang: 'língua',
         column: 'coluna',
         row: 'linha',
@@ -141,10 +137,10 @@ const languageResource = [
         langNo: 9,
         language: 'pl',
         langText: '	polski',
-        aboutTopicPot: 'topicpot to usługa, która oferuje do 100 tematów jednocześnie',
+        aboutTopicPot: 'Zamierzam spotkać się z nowym słowem.',
+
         resent: 'Ostatnio wybrany temat',
         schedule: 'Rozkład jazdy',
-
         aboutLang: 'Język',
         column: 'kolumna',
         row: 'Rząd',
@@ -155,10 +151,10 @@ const languageResource = [
         langNo: 10,
         language: 'nl',
         langText: 'Nederlands',
-        aboutTopicPot: 'topicpot is een dienst die tot 100 thema\'s tegelijk aanbiedt.',
+        aboutTopicPot: 'Ik ga een nieuw woord ontmoeten.',
+
         resent: 'Onlangs gekozen onderwerp',
         schedule: 'Plan',
-
         aboutLang: 'taal',
         column: 'kolom',
         row: 'rij',
@@ -174,13 +170,12 @@ const languageResource = [
  */
 function languageChange(langType) {
     $('#htmlLang').attr('lang', languageResource[langType].language);
+    $('#aboutTopicPot').text(languageResource[langType].aboutTopicPot);
 
     // $('#aboutLangType').text(languageResource[langType].aboutLang);
     // $('#aboutColmn').text(languageResource[langType].column);
     // $('#aboutRow').text(languageResource[langType].row);
-
-    $('#aboutTopicPot').text(languageResource[langType].aboutTopicPot);
     // $('#aboutResent').text(languageResource[langType].resent);
-    $('#aboutSchedule').text(languageResource[langType].schedule);
+    // $('#aboutSchedule').text(languageResource[langType].schedule);
     // $('#deleteHistory').text(languageResource[langType].deleteHistory);
 }

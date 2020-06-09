@@ -20,8 +20,10 @@ header{
 
 
 
-.title{
-    font-size:64px;
+.titleLogo{
+    width:100%;
+    max-width:300px;
+    height:auto;
     margin:0px 0px 0px 0px; /*上右下左*/
 }
 
