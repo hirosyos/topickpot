@@ -87,19 +87,20 @@
         if (localStorage.getItem('localDataJson') === null) {
             //ローカルストレージの初期設定(デフォルトは日本語の3x3)
             localData = {
-                lang: '4',      //ページの言語
+                lang: '4',        //ページの言語
                 panelNum: '9',    //パネルの数
                 his: {
-                    cnt: '0',    //履歴のカウンタ
-                    max: '100',  //履歴の最大保持数
+                    cnt: '0',     //履歴のカウンタ
+                    max: '100',   //履歴の最大保持数
                     ary: [],
                 },
                 fav: {
-                    cnt: '0',    //履歴のカウンタ
-                    max: '100',  //履歴の最大保持数
+                    cnt: '0',     //履歴のカウンタ
+                    max: '100',   //履歴の最大保持数
                     ary: [],
                 },
             }
+            //ローカルストレージに書き込み
             jsonData = JSON.stringify(localData)
             localStorage.setItem('localDataJson', jsonData);
         }

@@ -107,7 +107,7 @@ function createLangForm() {
  * @param パネルの最大数
  */
 function createPanelNumForm(panelMax) {
-    let htmlText;
+    let htmlText = '';
     for (let i = 1; i <= panelMax; i++) {
         htmlText += `<option value=${i}>${i}</option>`;
     }
@@ -229,32 +229,37 @@ function createAuther() {
 const autherList = [
     {
         //Twitter
-        title: 'Twitter',
+        title: 'Twitter (@miniusagi33)',
         url: 'https://twitter.com/miniusagi33',
     },
     {
         //github
-        title: 'github',
+        title: 'GitHub (hirosyos)',
         url: 'https://github.com/hirosyos',
     },
     {
-        //Twitter
-        title: 'JanK【戦略じゃんけん】',
-        url: 'https://jank.netlify.app/',
+        //Facebook
+        title: 'Facebook (吉田 洋)',
+        url: 'https://www.facebook.com/hiroshi.yoshida.7927',
     },
-    {
-        //Twitter
-        title: "G'sグラム【関連性を持たせた名簿】",
-        url: 'https://gsgram.netlify.app/',
-    },
-    {
-        //Twitter
-        title: '雰囲気オンライン【遠隔授業補助ツール】',
-        url: 'https://funikionline.netlify.app/',
-    },
-    {
-        //Twitter
-        title: 'C.S.V.E【オンラインCSVエディタ】',
-        url: 'https://csve.herokuapp.com/',
-    },
+    // {
+    //     //Jank
+    //     title: 'JanK【戦略じゃんけん】',
+    //     url: 'https://jank.netlify.app/',
+    // },
+    // {
+    //     //G'sグラム
+    //     title: "G'sグラム【関連性を持たせた名簿】",
+    //     url: 'https://gsgram.netlify.app/',
+    // },
+    // {
+    //     //雰囲気オンライン
+    //     title: '雰囲気オンライン【遠隔授業補助ツール】',
+    //     url: 'https://funikionline.netlify.app/',
+    // },
+    // {
+    //     //C.S.V.E
+    //     title: 'C.S.V.E【オンラインCSVエディタ】',
+    //     url: 'https://csve.herokuapp.com/',
+    // },
 ]
