@@ -182,5 +182,5 @@ function languageChange(langType) {
     $('#aboutTopicPot').text(languageResource[langType].aboutTopicPot);
     // $('#aboutResent').text(languageResource[langType].resent);
     $('#aboutSchedule').text(languageResource[langType].schedule);
-    $('#deleteHistory').text(languageResource[langType].deleteHistory);
+    // $('#deleteHistory').text(languageResource[langType].deleteHistory);
 }
