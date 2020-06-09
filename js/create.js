@@ -42,7 +42,7 @@ function createSearchPanel(langNo, panelNum) {
         function (key) {
             urlWikipedia += "&" + key + "=" + params[key];
         });
-    console.log(urlWikipedia);
+    // console.log(urlWikipedia);
 
     //Wikipediaからランダムにキーワード取得
     let randoms
@@ -51,11 +51,12 @@ function createSearchPanel(langNo, panelNum) {
             return response.json();
         })
         .then(function (response) {
-            console.log(response);
+            // console.log(response);
             randoms = response.query.random;
-            for (let r in randoms) {
-                console.log(randoms[r].title);
-            }
+            // for (let r in randoms) {
+            //     console.log(randoms[r].title);
+            // }
+
             //
             //WikipediaのランダムキーワードをGoogle検索ワードとして表示
             //

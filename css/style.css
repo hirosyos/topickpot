@@ -11,6 +11,20 @@ body{
     font-family: 'Noto Sans', sans-serif;
 }
 
+a{
+    text-decoration:none;
+}
+a:link, a:visited {
+    color: blue;
+}
+a:hover {
+    color: red;
+}
+
+a:active {
+    color: green;
+}
+
 /**
 /* タイトル周辺
  */
@@ -88,7 +102,6 @@ header{
     display:flex;               /* blockからflexに変更 */
     width:100%;
     height:100%;
-    text-decoration:none;
     justify-content:center;     /* 追加 */
     align-items:center;         /* 追加 */
 }
